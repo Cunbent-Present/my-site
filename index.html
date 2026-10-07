@@ -13,18 +13,18 @@
         ========================= */
 
         :root {
-            --bg: #05040b;
-            --bg-2: #0c0a18;
+            --bg: #000000;
+            --bg-2: #0d0d0d;
             --card: rgba(255, 255, 255, 0.04);
             --border: rgba(255, 255, 255, 0.09);
-            --text: #ecebf5;
-            --muted: #9a97b0;
+            --text: #f2f2f2;
+            --muted: #a3a3a3;
 
-            --trade: #00ff9d;   /* трейдинг — зелёный */
-            --chat: #ff3d9a;    /* чаттинг — розовый */
-            --code: #8b5cff;    /* вайбкодинг — фиолетовый */
-            --accent: #00e5ff;  /* общий акцент */
-            --tg: #2aabee;      /* цвет Telegram */
+            --trade: #ffd400;   /* трейдинг — жёлтый */
+            --chat: #ffaa00;    /* чаттинг — янтарный */
+            --code: #ffe94d;    /* вайбкодинг — светло-жёлтый */
+            --accent: #ffd400;  /* главный жёлтый */
+            --tg: #ffd400;      /* кнопки Telegram — тоже жёлтые */
         }
 
         * {
@@ -43,9 +43,8 @@
             color: var(--text);
             line-height: 1.6;
             background:
-                radial-gradient(circle at 15% 10%, rgba(139, 92, 255, 0.16), transparent 35%),
-                radial-gradient(circle at 85% 40%, rgba(255, 61, 154, 0.10), transparent 35%),
-                radial-gradient(circle at 20% 80%, rgba(0, 255, 157, 0.08), transparent 35%),
+                radial-gradient(circle at 15% 10%, rgba(255, 212, 0, 0.12), transparent 35%),
+                radial-gradient(circle at 85% 50%, rgba(255, 170, 0, 0.07), transparent 35%),
                 var(--bg);
             overflow-x: hidden;
         }
@@ -97,7 +96,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 40px;
-            background: rgba(5, 4, 11, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
@@ -135,12 +134,12 @@
             padding: 8px 18px;
             border-radius: 999px;
             background: var(--tg);
-            color: #fff;
+            color: #000;
             font-weight: 600;
         }
 
         .nav-links .nav-tg:hover {
-            color: #fff;
+            color: #000;
             filter: brightness(1.1);
         }
 
@@ -231,9 +230,9 @@
             text-decoration: none;
         }
 
-        .niche-pill.trade { color: var(--trade); border-color: rgba(0, 255, 157, 0.4); }
-        .niche-pill.chat  { color: var(--chat);  border-color: rgba(255, 61, 154, 0.4); }
-        .niche-pill.code  { color: var(--code);  border-color: rgba(139, 92, 255, 0.5); }
+        .niche-pill.trade { color: var(--trade); border-color: rgba(255, 212, 0, 0.45); }
+        .niche-pill.chat  { color: var(--chat);  border-color: rgba(255, 170, 0, 0.45); }
+        .niche-pill.code  { color: var(--code);  border-color: rgba(255, 233, 77, 0.45); }
 
         .buttons {
             display: flex;
@@ -261,8 +260,8 @@
 
         .btn-tg {
             background: var(--tg);
-            color: #fff;
-            box-shadow: 0 0 25px rgba(42, 171, 238, 0.35);
+            color: #000;
+            box-shadow: 0 0 25px rgba(255, 212, 0, 0.35);
         }
 
         .btn-outline {
@@ -362,7 +361,7 @@
         .course .btn {
             width: 100%;
             background: var(--c);
-            color: #05040b;
+            color: #000000;
         }
 
         /* =========================
@@ -390,7 +389,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            background: rgba(0, 229, 255, 0.12);
+            background: rgba(255, 212, 0, 0.12);
             color: var(--accent);
             margin-bottom: 14px;
         }
@@ -459,7 +458,7 @@
             padding: 50px 26px;
             border-radius: 26px;
             background:
-                radial-gradient(circle at 50% 0%, rgba(42, 171, 238, 0.18), transparent 60%),
+                radial-gradient(circle at 50% 0%, rgba(255, 212, 0, 0.14), transparent 60%),
                 var(--card);
             border: 1px solid var(--border);
         }
@@ -541,7 +540,7 @@
             height: 48px;
             border-radius: 14px;
             border: 1px solid var(--border);
-            background: rgba(12, 10, 24, 0.9);
+            background: rgba(13, 13, 13, 0.9);
             color: var(--text);
             font-size: 20px;
             cursor: pointer;
@@ -598,7 +597,7 @@
                 align-items: stretch;
                 gap: 0;
                 padding: 10px 16px 20px;
-                background: #05040b;
+                background: #000000;
                 border-bottom: 1px solid var(--border);
                 transform: translateY(-120%);
                 opacity: 0;
