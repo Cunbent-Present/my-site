@@ -1,16 +1,31 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Мой первый сайт</title>
+    <title>DARK SKILLS — курсы по онлайн-заработку</title>
+    <meta name="description" content="Курсы по трейдингу, чаттингу OnlyFans и вайбкодингу. Обучение в Telegram.">
 
     <style>
+        /* =========================
+           ЦВЕТА И ОСНОВА
+        ========================= */
+
+        :root {
+            --bg: #05040b;
+            --bg-2: #0c0a18;
+            --card: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #ecebf5;
+            --muted: #9a97b0;
+
+            --trade: #00ff9d;   /* трейдинг — зелёный */
+            --chat: #ff3d9a;    /* чаттинг — розовый */
+            --code: #8b5cff;    /* вайбкодинг — фиолетовый */
+            --accent: #00e5ff;  /* общий акцент */
+            --tg: #2aabee;      /* цвет Telegram */
+        }
 
         * {
             margin: 0;
@@ -18,1174 +33,909 @@
             box-sizing: border-box;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
 
-
         body {
-
             min-height: 100vh;
-
-            font-family: Arial, sans-serif;
-
-            color: white;
-
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
             background:
-                radial-gradient(
-                    circle at 20% 20%,
-                    rgba(0, 255, 255, 0.15),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 80% 70%,
-                    rgba(120, 0, 255, 0.18),
-                    transparent 30%
-                ),
-                linear-gradient(
-                    135deg,
-                    #080617,
-                    #15102f,
-                    #090719
-                );
-
+                radial-gradient(circle at 15% 10%, rgba(139, 92, 255, 0.16), transparent 35%),
+                radial-gradient(circle at 85% 40%, rgba(255, 61, 154, 0.10), transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 157, 0.08), transparent 35%),
+                var(--bg);
             overflow-x: hidden;
         }
 
+        a {
+            color: inherit;
+        }
+
+        section {
+            padding: 110px 20px 70px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: clamp(28px, 5vw, 42px);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-text {
+            color: var(--muted);
+            max-width: 620px;
+            margin-bottom: 40px;
+        }
 
         /* =========================
            НАВИГАЦИЯ
         ========================= */
 
         .navbar {
-
             position: fixed;
-
             top: 0;
             left: 0;
-
             width: 100%;
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
-            padding: 20px 50px;
-
-            background: rgba(8, 6, 23, 0.75);
-
-            backdrop-filter: blur(15px);
-
-            border-bottom: 1px solid rgba(0, 255, 255, 0.15);
-
+            padding: 16px 40px;
+            background: rgba(5, 4, 11, 0.8);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
         }
 
-
         .logo {
-
-            font-size: 24px;
-
-            font-weight: bold;
-
-            color: #00ffff;
-
-            text-shadow:
-                0 0 10px #00ffff,
-                0 0 25px #00ffff;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-decoration: none;
+            background: linear-gradient(90deg, var(--trade), var(--chat), var(--code));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
 
         .nav-links {
-
             display: flex;
-
-            gap: 30px;
+            align-items: center;
+            gap: 28px;
         }
 
-
         .nav-links a {
-
-            color: white;
-
             text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
 
-            font-size: 17px;
+        .nav-links a:hover {
+            color: var(--accent);
+        }
 
+        .nav-links .nav-tg {
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: var(--tg);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .nav-links .nav-tg:hover {
+            color: #fff;
+            filter: brightness(1.1);
+        }
+
+        /* Кнопка-бургер (видна только на телефоне) */
+        .burger {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .burger span {
+            position: absolute;
+            left: 11px;
+            width: 20px;
+            height: 2px;
+            background: var(--text);
             transition: 0.3s;
         }
 
+        .burger span:nth-child(1) { top: 15px; }
+        .burger span:nth-child(2) { top: 21px; }
+        .burger span:nth-child(3) { top: 27px; }
 
-        .nav-links a:hover {
-
-            color: #00ffff;
-
-            text-shadow:
-                0 0 10px #00ffff,
-                0 0 20px #00ffff;
-        }
-
-
-        /* =========================
-           СВЕТЯЩИЕСЯ КРУГИ
-        ========================= */
-
-        .glow {
-
-            position: fixed;
-
-            width: 300px;
-
-            height: 300px;
-
-            border-radius: 50%;
-
-            background: rgba(0, 255, 255, 0.08);
-
-            filter: blur(80px);
-
-            pointer-events: none;
-
-            z-index: -1;
-
-            animation: moveGlow 8s ease-in-out infinite;
-        }
-
-
-        .glow-one {
-
-            top: 10%;
-
-            left: 5%;
-        }
-
-
-        .glow-two {
-
-            right: 5%;
-
-            bottom: 10%;
-
-            background: rgba(120, 0, 255, 0.1);
-
-            animation-delay: 2s;
-        }
-
+        /* Бургер превращается в крестик */
+        .burger.active span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+        .burger.active span:nth-child(2) { opacity: 0; }
+        .burger.active span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
 
         /* =========================
            ГЛАВНЫЙ ЭКРАН
         ========================= */
 
         .hero {
-
             min-height: 100vh;
-
             display: flex;
-
-            justify-content: center;
-
             align-items: center;
-
             text-align: center;
-
-            padding: 120px 20px 80px;
         }
 
-
-        .container {
-
-            max-width: 900px;
-
-            animation: appear 1.2s ease;
+        .hero .small-title {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
         }
 
-
-        .small-title {
-
-            color: #00ffff;
-
-            font-size: 18px;
-
-            letter-spacing: 4px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 20px;
+        .hero h1 {
+            font-size: clamp(36px, 7vw, 72px);
+            line-height: 1.1;
+            margin-bottom: 22px;
         }
 
-
-        h1 {
-
-            font-size: 75px;
-
-            margin-bottom: 25px;
-
-            animation: float 3s ease-in-out infinite;
-
-            text-shadow:
-                0 0 10px white,
-                0 0 30px #00ffff,
-                0 0 60px rgba(0, 255, 255, 0.5);
+        .hero h1 .grad {
+            background: linear-gradient(90deg, var(--trade), var(--chat), var(--code));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
 
         .hero-text {
-
-            max-width: 700px;
-
-            margin: 0 auto 35px;
-
-            font-size: 25px;
-
-            line-height: 1.6;
-
-            opacity: 0.8;
+            color: var(--muted);
+            font-size: clamp(16px, 2.4vw, 20px);
+            max-width: 640px;
+            margin: 0 auto 36px;
         }
 
-
-        /* =========================
-           КНОПКА
-        ========================= */
-
-        .main-button {
-
-            padding: 16px 38px;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            color: white;
-
-            background: transparent;
-
-            border: 2px solid #00ffff;
-
-            border-radius: 50px;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 0 10px #00ffff,
-                0 0 30px rgba(0, 255, 255, 0.4);
-
-            transition: all 0.3s ease;
+        .hero-niches {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 36px;
         }
 
-
-        .main-button:hover {
-
-            transform: scale(1.08);
-
-            background: #00ffff;
-
-            color: #080617;
-
-            box-shadow:
-                0 0 20px #00ffff,
-                0 0 50px #00ffff,
-                0 0 80px rgba(0, 255, 255, 0.5);
-        }
-
-
-        #message {
-
-            margin-top: 25px;
-
-            min-height: 30px;
-
-            color: #00ffff;
-
-            font-size: 20px;
-        }
-
-
-        /* =========================
-           О САЙТЕ
-        ========================= */
-
-        .about {
-
-            min-height: 100vh;
-
-            padding: 110px 30px;
-
-            text-align: center;
-        }
-
-
-        .section-label {
-
-            color: #00ffff;
-
+        .niche-pill {
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid;
             font-size: 15px;
-
-            letter-spacing: 3px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 15px;
+            text-decoration: none;
         }
 
+        .niche-pill.trade { color: var(--trade); border-color: rgba(0, 255, 157, 0.4); }
+        .niche-pill.chat  { color: var(--chat);  border-color: rgba(255, 61, 154, 0.4); }
+        .niche-pill.code  { color: var(--code);  border-color: rgba(139, 92, 255, 0.5); }
 
-        .about h2,
-        .stats h2,
-        .contact h2 {
-
-            font-size: 45px;
-
-            margin-bottom: 50px;
-
-            text-shadow:
-                0 0 15px rgba(0, 255, 255, 0.5);
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
         }
 
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-tg {
+            background: var(--tg);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(42, 171, 238, 0.35);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            background: var(--card);
+        }
 
         /* =========================
-           КАРТОЧКИ
+           КУРСЫ
         ========================= */
 
-        .cards {
-
-            max-width: 1100px;
-
-            margin: 0 auto;
-
+        .courses-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 25px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
         }
 
-
-        .card {
-
-            padding: 40px 25px;
-
-            border: 1px solid rgba(0, 255, 255, 0.25);
-
+        .course {
+            --c: var(--accent);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 26px;
             border-radius: 22px;
-
-            background: rgba(255, 255, 255, 0.06);
-
-            backdrop-filter: blur(15px);
-
-            transition: 0.4s;
-
-            position: relative;
-
-            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--c);
+            transition: transform 0.25s, box-shadow 0.25s;
         }
 
-
-        .card::before {
-
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: -100%;
-
-            width: 100%;
-
-            height: 2px;
-
-            background: #00ffff;
-
-            transition: 0.5s;
+        .course:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 40px -10px var(--c);
         }
 
+        .course.trade { --c: var(--trade); }
+        .course.chat  { --c: var(--chat); }
+        .course.code  { --c: var(--code); }
 
-        .card:hover::before {
-
-            left: 0;
+        .course-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
         }
 
-
-        .card:hover {
-
-            transform: translateY(-12px);
-
-            border-color: #00ffff;
-
-            box-shadow:
-                0 0 25px rgba(0, 255, 255, 0.25);
+        .course-tag {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--c);
+            margin-bottom: 6px;
         }
 
-
-        .card-icon {
-
-            font-size: 45px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .card h3 {
-
-            font-size: 25px;
-
-            margin-bottom: 15px;
-
-            color: #00ffff;
-        }
-
-
-        .card p {
-
-            font-size: 17px;
-
-            line-height: 1.7;
-
-            opacity: 0.75;
-        }
-
-
-        /* =========================
-           СТАТИСТИКА
-        ========================= */
-
-        .stats {
-
-            padding: 100px 30px;
-
-            text-align: center;
-        }
-
-
-        .stats-container {
-
-            max-width: 1000px;
-
-            margin: 0 auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 25px;
-        }
-
-
-        .stat {
-
-            padding: 35px;
-
-            border-radius: 20px;
-
-            background: rgba(255, 255, 255, 0.05);
-
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-
-        .stat-number {
-
-            font-size: 45px;
-
-            font-weight: bold;
-
-            color: #00ffff;
-
+        .course h3 {
+            font-size: 24px;
             margin-bottom: 10px;
         }
 
-
-        .stat p {
-
-            opacity: 0.7;
-
-            font-size: 17px;
+        .course > p {
+            color: var(--muted);
+            margin-bottom: 18px;
         }
 
+        .course ul {
+            list-style: none;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .course li {
+            padding-left: 26px;
+            position: relative;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .course li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--c);
+            font-weight: bold;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--muted);
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            margin-bottom: 18px;
+        }
+
+        .course-meta b {
+            color: var(--text);
+        }
+
+        .course .btn {
+            width: 100%;
+            background: var(--c);
+            color: #05040b;
+        }
+
+        /* =========================
+           КАК ПРОХОДИТ ОБУЧЕНИЕ
+        ========================= */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .step {
+            padding: 26px;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .step-num {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            background: rgba(0, 229, 255, 0.12);
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .step h3 {
+            margin-bottom: 6px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* =========================
+           ВОПРОСЫ
+        ========================= */
+
+        .faq {
+            max-width: 760px;
+        }
+
+        .faq details {
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            padding: 18px 22px;
+        }
+
+        .faq summary {
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .faq summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq summary::after {
+            content: "+";
+            color: var(--accent);
+            font-size: 22px;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .faq details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq details p {
+            color: var(--muted);
+            margin-top: 12px;
+        }
 
         /* =========================
            КОНТАКТЫ
         ========================= */
 
-        .contact {
-
-            min-height: 70vh;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            text-align: center;
-
-            padding: 100px 20px;
-        }
-
-
         .contact-box {
-
-            max-width: 800px;
-
-            padding: 60px 40px;
-
-            border-radius: 30px;
-
+            text-align: center;
+            padding: 50px 26px;
+            border-radius: 26px;
             background:
-                linear-gradient(
-                    135deg,
-                    rgba(0, 255, 255, 0.08),
-                    rgba(120, 0, 255, 0.08)
-                );
-
-            border: 1px solid rgba(0, 255, 255, 0.25);
-
-            box-shadow:
-                0 0 50px rgba(0, 255, 255, 0.08);
+                radial-gradient(circle at 50% 0%, rgba(42, 171, 238, 0.18), transparent 60%),
+                var(--card);
+            border: 1px solid var(--border);
         }
 
-
-        .contact h2 {
-
-            margin-bottom: 20px;
+        .contact-box .section-text {
+            margin: 0 auto 32px;
         }
 
-
-        .contact p {
-
-            font-size: 20px;
-
-            line-height: 1.7;
-
-            opacity: 0.75;
-
-            margin-bottom: 30px;
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 640px;
+            margin: 0 auto;
         }
 
-
-        .contact-button {
-
-            display: inline-block;
-
-            padding: 14px 30px;
-
-            color: #00ffff;
-
-            border: 1px solid #00ffff;
-
-            border-radius: 50px;
-
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
             text-decoration: none;
-
-            transition: 0.3s;
+            text-align: left;
+            transition: border-color 0.2s, transform 0.2s;
         }
 
-
-        .contact-button:hover {
-
-            background: #00ffff;
-
-            color: #080617;
-
-            box-shadow:
-                0 0 30px rgba(0, 255, 255, 0.5);
+        .contact-card:hover {
+            border-color: var(--tg);
+            transform: translateY(-3px);
         }
 
+        .contact-card .ic {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: var(--tg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .contact-card b {
+            display: block;
+        }
+
+        .contact-card small {
+            color: var(--muted);
+        }
 
         /* =========================
-           FOOTER
+           ПОДВАЛ
         ========================= */
 
         footer {
-
-            padding: 30px 20px;
-
             text-align: center;
-
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-            color: rgba(255, 255, 255, 0.5);
-
-            font-size: 14px;
+            padding: 40px 20px 50px;
+            color: var(--muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
         }
 
+        footer .disclaimer {
+            max-width: 720px;
+            margin: 12px auto 0;
+            opacity: 0.8;
+        }
 
-        /* =========================
-           КНОПКА НАВЕРХ
-        ========================= */
-
+        /* Кнопка наверх */
         #topButton {
-
             position: fixed;
-
-            right: 25px;
-
-            bottom: 25px;
-
-            width: 50px;
-
-            height: 50px;
-
-            border-radius: 50%;
-
-            border: 1px solid #00ffff;
-
-            background: rgba(8, 6, 23, 0.8);
-
-            color: #00ffff;
-
-            font-size: 22px;
-
+            right: 20px;
+            bottom: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: rgba(12, 10, 24, 0.9);
+            color: var(--text);
+            font-size: 20px;
             cursor: pointer;
-
             opacity: 0;
-
             pointer-events: none;
-
-            transition: 0.3s;
-
-            z-index: 999;
+            transition: opacity 0.3s;
+            z-index: 900;
         }
-
 
         #topButton.show {
-
             opacity: 1;
-
             pointer-events: auto;
         }
 
-
-        #topButton:hover {
-
-            background: #00ffff;
-
-            color: #080617;
-
-            box-shadow:
-                0 0 25px #00ffff;
+        /* Плавное появление блоков при прокрутке */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
         }
 
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
 
         /* =========================
-           АНИМАЦИИ
+           ТЕЛЕФОНЫ И ПЛАНШЕТЫ
         ========================= */
 
-        @keyframes float {
-
-            0%, 100% {
-
-                transform:
-                    translateY(0);
-            }
-
-            50% {
-
-                transform:
-                    translateY(-15px);
+        @media (max-width: 900px) {
+            .courses-grid,
+            .steps {
+                grid-template-columns: 1fr;
             }
         }
 
-
-        @keyframes appear {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(30px);
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-            }
-        }
-
-
-        @keyframes moveGlow {
-
-            0%, 100% {
-
-                transform:
-                    translate(0, 0);
-            }
-
-            50% {
-
-                transform:
-                    translate(80px, -50px);
-            }
-        }
-
-
-        /* =========================
-           МОБИЛЬНАЯ ВЕРСИЯ
-        ========================= */
-
-        @media (max-width: 700px) {
-
+        @media (max-width: 760px) {
             .navbar {
-
-                padding: 15px 20px;
+                padding: 12px 16px;
             }
 
-
-            .logo {
-
-                font-size: 18px;
+            .burger {
+                display: block;
             }
 
-
+            /* Меню выезжает сверху */
             .nav-links {
-
-                gap: 12px;
+                position: fixed;
+                top: 69px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 16px 20px;
+                background: #05040b;
+                border-bottom: 1px solid var(--border);
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s, opacity 0.3s;
             }
 
+            .nav-links.open {
+                transform: none;
+                opacity: 1;
+                pointer-events: auto;
+            }
 
             .nav-links a {
-
-                font-size: 13px;
+                padding: 14px 4px;
+                font-size: 18px;
+                border-bottom: 1px solid var(--border);
             }
 
-
-            h1 {
-
-                font-size: 48px;
+            .nav-links .nav-tg {
+                margin-top: 14px;
+                text-align: center;
+                border-bottom: none;
             }
 
-
-            .hero-text {
-
-                font-size: 19px;
+            section {
+                padding: 90px 16px 50px;
             }
 
-
-            .about h2,
-            .stats h2,
-            .contact h2 {
-
-                font-size: 34px;
-            }
-
-
-            .cards {
-
+            .contact-cards {
                 grid-template-columns: 1fr;
             }
 
-
-            .stats-container {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .contact-box {
-
-                padding: 40px 20px;
-            }
-
-
-            #topButton {
-
-                right: 15px;
-
-                bottom: 15px;
+            .btn {
+                width: 100%;
             }
         }
-
     </style>
-
 </head>
 
-
 <body>
-
-
-    <!-- СВЕТЯЩИЕСЯ ЭЛЕМЕНТЫ -->
-
-    <div class="glow glow-one"></div>
-
-    <div class="glow glow-two"></div>
-
 
     <!-- НАВИГАЦИЯ -->
 
     <nav class="navbar">
+        <a href="#home" class="logo">DARK SKILLS</a>
 
-        <div class="logo">
+        <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
 
-            MY SITE 🚀
-
+        <div class="nav-links" id="navLinks">
+            <a href="#courses">Курсы</a>
+            <a href="#how">Как проходит</a>
+            <a href="#faq">Вопросы</a>
+            <a href="#contact">Контакты</a>
+            <a href="#" class="nav-tg" data-tg="channel" target="_blank" rel="noopener">Telegram-канал</a>
         </div>
-
-
-        <div class="nav-links">
-
-            <a href="#home">
-                Главная
-            </a>
-
-            <a href="#about">
-                О сайте
-            </a>
-
-            <a href="#stats">
-                Статистика
-            </a>
-
-            <a href="#contact">
-                Контакты
-            </a>
-
-        </div>
-
     </nav>
 
 
     <!-- ГЛАВНЫЙ ЭКРАН -->
 
     <section class="hero" id="home">
-
         <div class="container">
+            <div class="small-title">Обучение онлайн-заработку · 18+</div>
 
-            <div class="small-title">
-                Добро пожаловать
-            </div>
-
-
-            <h1>
-                Привет! 👋
-            </h1>
-
+            <h1>Освой навык,<br>который <span class="grad">приносит деньги</span></h1>
 
             <p class="hero-text">
-
-                Это мой первый настоящий сайт,
-                который я создаю сам 🚀
-
+                Три направления на выбор: трейдинг, чаттинг OnlyFans и вайбкодинг.
+                Всё обучение проходит в Telegram — уроки, разборы и поддержка.
             </p>
 
+            <div class="hero-niches">
+                <a href="#course-trade" class="niche-pill trade">📈 Трейдинг</a>
+                <a href="#course-chat" class="niche-pill chat">💬 Чаттинг OnlyFans</a>
+                <a href="#course-code" class="niche-pill code">🤖 Вайбкодинг</a>
+            </div>
 
-            <button
-                class="main-button"
-                id="myButton">
-
-                Нажми меня ✨
-
-            </button>
-
-
-            <p id="message"></p>
-
+            <div class="buttons">
+                <a href="#courses" class="btn btn-tg">Выбрать курс</a>
+                <a href="#" class="btn btn-outline" data-tg="channel" target="_blank" rel="noopener">Бесплатные материалы в канале</a>
+            </div>
         </div>
-
     </section>
 
 
-    <!-- О САЙТЕ -->
+    <!-- КУРСЫ -->
 
-    <section class="about" id="about">
+    <section id="courses">
+        <div class="container">
+            <div class="section-label">Курсы</div>
+            <h2>Что ты можешь изучить</h2>
+            <p class="section-text">
+                Выбери направление, которое тебе ближе. Напиши мне в личные сообщения —
+                расскажу подробнее о программе и цене.
+            </p>
 
-        <div class="section-label">
-            Возможности
+            <div class="courses-grid">
+
+                <!-- Курс 1: Трейдинг -->
+                <div class="course trade reveal" id="course-trade">
+                    <div class="course-icon">📈</div>
+                    <div class="course-tag">Курс №1</div>
+                    <h3>Трейдинг</h3>
+                    <p>Как устроены рынки и как торговать осознанно, а не наугад.</p>
+                    <ul>
+                        <li>Основы рынка и терминология</li>
+                        <li>Чтение графиков и технический анализ</li>
+                        <li>Риск-менеджмент и управление капиталом</li>
+                        <li>Торговая стратегия и дневник сделок</li>
+                    </ul>
+                    <div class="course-meta">
+                        <span>Формат: <b>Telegram</b></span>
+                        <span>Цена: <b>в ЛС</b></span>
+                    </div>
+                    <a href="#" class="btn" data-tg="dm" target="_blank" rel="noopener">Хочу на курс</a>
+                </div>
+
+                <!-- Курс 2: Чаттинг OnlyFans -->
+                <div class="course chat reveal" id="course-chat">
+                    <div class="course-icon">💬</div>
+                    <div class="course-tag">Курс №2 · 18+</div>
+                    <h3>Чаттинг OnlyFans</h3>
+                    <p>Работа чаттером: общение с подписчиками от лица модели и продажи в переписке.</p>
+                    <ul>
+                        <li>Как устроена работа чаттера и агентств</li>
+                        <li>Скрипты общения и продаж</li>
+                        <li>Работа на смене: правила и KPI</li>
+                        <li>Как найти первую работу</li>
+                    </ul>
+                    <div class="course-meta">
+                        <span>Формат: <b>Telegram</b></span>
+                        <span>Цена: <b>в ЛС</b></span>
+                    </div>
+                    <a href="#" class="btn" data-tg="dm" target="_blank" rel="noopener">Хочу на курс</a>
+                </div>
+
+                <!-- Курс 3: Вайбкодинг -->
+                <div class="course code reveal" id="course-code">
+                    <div class="course-icon">🤖</div>
+                    <div class="course-tag">Курс №3</div>
+                    <h3>Вайбкодинг</h3>
+                    <p>Создание сайтов, ботов и приложений с помощью нейросетей — без глубокого знания кода.</p>
+                    <ul>
+                        <li>Как ставить задачи нейросети</li>
+                        <li>Сайты, лендинги и Telegram-боты</li>
+                        <li>Публикация проекта в интернет</li>
+                        <li>Где искать первых заказчиков</li>
+                    </ul>
+                    <div class="course-meta">
+                        <span>Формат: <b>Telegram</b></span>
+                        <span>Цена: <b>в ЛС</b></span>
+                    </div>
+                    <a href="#" class="btn" data-tg="dm" target="_blank" rel="noopener">Хочу на курс</a>
+                </div>
+
+            </div>
         </div>
-
-
-        <h2>
-            Почему этот сайт крутой? 🔥
-        </h2>
-
-
-        <div class="cards">
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    🎨
-                </div>
-
-                <h3>
-                    Красивый
-                </h3>
-
-                <p>
-
-                    Современный неоновый
-                    дизайн, стеклянные карточки
-                    и плавные анимации.
-
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    Быстрый
-                </h3>
-
-                <p>
-
-                    Сайт работает прямо
-                    в браузере и использует
-                    простые современные технологии.
-
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    📱
-                </div>
-
-                <h3>
-                    Адаптивный
-                </h3>
-
-                <p>
-
-                    Страница автоматически
-                    подстраивается под телефон,
-                    планшет и компьютер.
-
-                </p>
-
-            </div>
-
-
-        </div>
-
     </section>
 
 
-    <!-- СТАТИСТИКА -->
+    <!-- КАК ПРОХОДИТ ОБУЧЕНИЕ -->
 
-    <section class="stats" id="stats">
+    <section id="how">
+        <div class="container">
+            <div class="section-label">Как это работает</div>
+            <h2>Как проходит обучение</h2>
+            <p class="section-text">Никаких сложных платформ — всё в привычном Telegram.</p>
 
-        <div class="section-label">
-            Наш прогресс
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-num">1</div>
+                    <h3>Подпишись на канал</h3>
+                    <p>В канале лежат основы по всем трём направлениям — начни с них.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">2</div>
+                    <h3>Напиши в личку</h3>
+                    <p>Выбери курс, задай вопросы и узнай цену и условия.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-num">3</div>
+                    <h3>Учись и практикуйся</h3>
+                    <p>Получи доступ к урокам и проходи их в своём темпе.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
 
-        <h2>
-            Сайт развивается 🚀
-        </h2>
+    <!-- ВОПРОСЫ -->
 
+    <section id="faq">
+        <div class="container">
+            <div class="section-label">FAQ</div>
+            <h2>Частые вопросы</h2>
 
-        <div class="stats-container">
-
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    100%
-                </div>
-
-                <p>
-                    Желания учиться
-                </p>
-
+            <div class="faq">
+                <details class="reveal">
+                    <summary>Где проходит обучение?</summary>
+                    <p>Полностью в Telegram: основы — в открытом канале, полные курсы — после записи через личные сообщения.</p>
+                </details>
+                <details class="reveal">
+                    <summary>Нужен ли опыт?</summary>
+                    <p>Нет, каждый курс начинается с основ.</p>
+                </details>
+                <details class="reveal">
+                    <summary>Сколько стоит курс?</summary>
+                    <p>Цену и условия я рассказываю в личных сообщениях — напиши, и я отвечу.</p>
+                </details>
+                <details class="reveal">
+                    <summary>Сколько я буду зарабатывать?</summary>
+                    <p>Это зависит от твоих усилий и практики. Я даю знания и навыки, но не гарантирую доход.</p>
+                </details>
             </div>
-
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    24/7
-                </div>
-
-                <p>
-                    Идей для проекта
-                </p>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-number">
-                    ∞
-                </div>
-
-                <p>
-                    Возможностей
-                </p>
-
-            </div>
-
-
         </div>
-
     </section>
 
 
     <!-- КОНТАКТЫ -->
 
-    <section class="contact" id="contact">
+    <section id="contact">
+        <div class="container">
+            <div class="contact-box reveal">
+                <div class="section-label">Связь</div>
+                <h2>Начни в Telegram</h2>
+                <p class="section-text">Подписывайся на канал с бесплатными основами или пиши мне напрямую.</p>
 
-        <div class="contact-box">
-
-            <div class="section-label">
-                Связь
+                <div class="contact-cards">
+                    <a href="#" class="contact-card" data-tg="channel" target="_blank" rel="noopener">
+                        <span class="ic">📢</span>
+                        <span>
+                            <b>Telegram-канал</b>
+                            <small>Бесплатные основы обучения</small>
+                        </span>
+                    </a>
+                    <a href="#" class="contact-card" data-tg="dm" target="_blank" rel="noopener">
+                        <span class="ic">✉️</span>
+                        <span>
+                            <b>Написать мне</b>
+                            <small>Запись на курс и вопросы</small>
+                        </span>
+                    </a>
+                </div>
             </div>
-
-
-            <h2>
-                Давай создавать вместе 💙
-            </h2>
-
-
-            <p>
-
-                Этот блок позже можно превратить
-                в настоящую форму обратной связи
-                или добавить ссылки на социальные сети.
-
-            </p>
-
-
-            <a
-                href="#home"
-                class="contact-button">
-
-                Вернуться наверх ↑
-
-            </a>
-
         </div>
-
     </section>
 
 
-    <!-- FOOTER -->
+    <!-- ПОДВАЛ -->
 
     <footer>
-
-        © 2026 MY SITE 🚀
-        <br>
-        Сделано с помощью HTML, CSS и JavaScript
-
+        © 2026 DARK SKILLS
+        <p class="disclaimer">
+            Материалы носят образовательный характер. Результаты зависят от ваших усилий, доход не гарантируется.
+            Торговля на финансовых рынках связана с риском потери средств и не является инвестиционной рекомендацией.
+            Курс по чаттингу — только для лиц старше 18 лет.
+        </p>
     </footer>
 
 
-    <!-- КНОПКА НАВЕРХ -->
+    <button id="topButton" aria-label="Наверх">↑</button>
 
-    <button id="topButton">
-        ↑
-    </button>
-
-
-    <!-- JAVASCRIPT -->
 
     <script>
+        /* =========================
+           ТВОИ ССЫЛКИ НА TELEGRAM
+           Поменяй только эти две строки —
+           ссылки обновятся на всём сайте
+        ========================= */
+
+        const TELEGRAM_CHANNEL = "https://t.me/your_channel";   // канал
+        const TELEGRAM_DM      = "https://t.me/your_username";  // личные сообщения
 
 
-        /* КНОПКА ГЛАВНОГО ЭКРАНА */
+        // Подставляем ссылки во все кнопки
+        document.querySelectorAll('[data-tg="channel"]').forEach(function (link) {
+            link.href = TELEGRAM_CHANNEL;
+        });
 
-        const button =
-            document.getElementById("myButton");
-
-
-        const message =
-            document.getElementById("message");
-
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                button.textContent =
-                    "Получилось! 🎉";
+        document.querySelectorAll('[data-tg="dm"]').forEach(function (link) {
+            link.href = TELEGRAM_DM;
+        });
 
 
-                message.textContent =
-                    "JavaScript работает! 🚀";
+        /* МОБИЛЬНОЕ МЕНЮ */
+
+        const burger = document.getElementById("burger");
+        const navLinks = document.getElementById("navLinks");
+
+        burger.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("open");
+            burger.classList.toggle("active", isOpen);
+            burger.setAttribute("aria-expanded", isOpen);
+        });
+
+        // Закрываем меню после нажатия на пункт
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("open");
+                burger.classList.remove("active");
+                burger.setAttribute("aria-expanded", "false");
+            });
+        });
 
 
-                button.style.transform =
-                    "scale(1.15)";
+        /* ПОЯВЛЕНИЕ БЛОКОВ ПРИ ПРОКРУТКЕ */
 
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
 
-                setTimeout(
-                    function() {
-
-                        button.style.transform =
-                            "scale(1)";
-
-                    },
-                    300
-                );
-
-            }
-        );
+        document.querySelectorAll(".reveal").forEach(function (el) {
+            observer.observe(el);
+        });
 
 
         /* КНОПКА НАВЕРХ */
 
-        const topButton =
-            document.getElementById("topButton");
+        const topButton = document.getElementById("topButton");
 
+        window.addEventListener("scroll", function () {
+            topButton.classList.toggle("show", window.scrollY > 500);
+        });
 
-        window.addEventListener(
-            "scroll",
-            function() {
-
-                if (window.scrollY > 500) {
-
-                    topButton.classList.add(
-                        "show"
-                    );
-
-                } else {
-
-                    topButton.classList.remove(
-                        "show"
-                    );
-
-                }
-
-            }
-        );
-
-
-        topButton.addEventListener(
-            "click",
-            function() {
-
-                window.scrollTo({
-
-                    top: 0,
-
-                    behavior: "smooth"
-
-                });
-
-            }
-        );
-
-
+        topButton.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
     </script>
-
 
 </body>
 
 </html>
-```
