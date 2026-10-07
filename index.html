@@ -403,6 +403,34 @@
             font-size: 15px;
         }
 
+        /* Жёлтая плашка-слоган */
+        .promise {
+            margin-top: 28px;
+            padding: 28px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 212, 0, 0.45);
+            background:
+                linear-gradient(90deg, rgba(255, 212, 0, 0.14), rgba(255, 212, 0, 0.03));
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .promise-icon {
+            font-size: 34px;
+            flex-shrink: 0;
+        }
+
+        .promise p {
+            font-size: clamp(18px, 2.6vw, 24px);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .promise span {
+            color: var(--accent);
+        }
+
         /* =========================
            ВОПРОСЫ
         ========================= */
@@ -785,6 +813,12 @@
                     <h3>Учись и практикуйся</h3>
                     <p>Получи доступ к урокам и проходи их в своём темпе.</p>
                 </div>
+            </div>
+
+            <!-- Слоган -->
+            <div class="promise reveal">
+                <div class="promise-icon">🤝</div>
+                <p>Тебя ждёт не только <span>комфортное обучение</span>, но и <span>приятное общение</span></p>
             </div>
         </div>
     </section>
