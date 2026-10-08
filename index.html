@@ -497,9 +497,9 @@
 
         .contact-cards {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            max-width: 640px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -779,9 +779,9 @@
                     </ul>
                     <div class="course-meta">
                         <span>Формат: <b>Telegram</b></span>
-                        <span>Цена: <b>в ЛС</b></span>
+                        <span>Цена: <b>от 559 ₽</b></span>
                     </div>
-                    <a href="https://t.me/cunbent" class="btn" data-tg="dm" target="_blank" rel="noopener">Хочу на курс</a>
+                    <a href="https://t.me/Cunbent_bot" class="btn" data-tg="bot" target="_blank" rel="noopener">Записаться через бота</a>
                 </div>
 
             </div>
@@ -877,6 +877,13 @@
                             <small>Запись на курс и вопросы</small>
                         </span>
                     </a>
+                    <a href="https://t.me/Cunbent_bot" class="contact-card" data-tg="bot" target="_blank" rel="noopener">
+                        <span class="ic">🤖</span>
+                        <span>
+                            <b>Бот Cunbent</b>
+                            <small>Тарифы и запись на вайбкодинг</small>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -907,6 +914,7 @@
 
         const TELEGRAM_CHANNEL = "https://t.me/+ifDFHVR6S5w1ZjIy";   // канал
         const TELEGRAM_DM      = "https://t.me/cunbent";  // личные сообщения
+        const TELEGRAM_BOT     = "https://t.me/Cunbent_bot";  // бот (запись на вайбкодинг)
 
 
         // Подставляем ссылки во все кнопки
@@ -916,6 +924,10 @@
 
         document.querySelectorAll('[data-tg="dm"]').forEach(function (link) {
             link.href = TELEGRAM_DM;
+        });
+
+        document.querySelectorAll('[data-tg="bot"]').forEach(function (link) {
+            link.href = TELEGRAM_BOT;
         });
 
 
