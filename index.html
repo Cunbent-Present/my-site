@@ -596,6 +596,98 @@
         }
 
         /* =========================
+           3D-СЦЕНА
+        ========================= */
+
+        #scene3d {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            display: block;
+        }
+
+        section,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Затемнение снизу героя, чтобы текст читался поверх 3D */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.35) 40%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Карточки чуть плотнее, чтобы 3D не мешал тексту */
+        .course,
+        .step,
+        .faq details,
+        .contact-box {
+            background: rgba(10, 10, 10, 0.72);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* 3D-наклон карточек */
+        .tilt {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .tilt.visible {
+            transition: transform 0.15s ease-out, box-shadow 0.25s, opacity 0.6s;
+        }
+
+        .tilt .course-icon,
+        .tilt h3 {
+            transform: translateZ(40px);
+        }
+
+        .tilt .glare {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 212, 0, 0.16), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tilt:hover .glare {
+            opacity: 1;
+        }
+
+        .course {
+            position: relative;
+        }
+
+        .hero-text {
+            color: #d6d6d6;
+            text-shadow: 0 2px 12px #000, 0 0 4px #000;
+        }
+
+        /* Объёмный заголовок */
+        .hero h1 {
+            text-shadow: 0 1px 0 #444, 0 2px 0 #333, 0 3px 0 #222, 0 6px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero h1 .grad {
+            text-shadow: none;
+            filter: drop-shadow(0 3px 0 #6b5400) drop-shadow(0 0 18px rgba(255, 212, 0, 0.35));
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tilt { transform: none !important; }
+        }
+
+        /* =========================
            ТЕЛЕФОНЫ И ПЛАНШЕТЫ
         ========================= */
 
@@ -668,6 +760,9 @@
 
 <body>
 
+    <!-- 3D-ФОН -->
+    <canvas id="scene3d" aria-hidden="true"></canvas>
+
     <!-- НАВИГАЦИЯ -->
 
     <nav class="navbar">
@@ -728,7 +823,7 @@
             <div class="courses-grid">
 
                 <!-- Курс 1: Трейдинг -->
-                <div class="course trade reveal" id="course-trade">
+                <div class="course trade reveal tilt" id="course-trade">
                     <div class="course-icon">📈</div>
                     <div class="course-tag">Курс №1</div>
                     <h3>Трейдинг</h3>
@@ -747,7 +842,7 @@
                 </div>
 
                 <!-- Курс 2: Чаттинг OnlyFans -->
-                <div class="course chat reveal" id="course-chat">
+                <div class="course chat reveal tilt" id="course-chat">
                     <div class="course-icon">💬</div>
                     <div class="course-tag">Курс №2 · 18+</div>
                     <h3>Чаттинг OnlyFans</h3>
@@ -766,7 +861,7 @@
                 </div>
 
                 <!-- Курс 3: Вайбкодинг -->
-                <div class="course code reveal" id="course-code">
+                <div class="course code reveal tilt" id="course-code">
                     <div class="course-icon">🤖</div>
                     <div class="course-tag">Курс №3</div>
                     <h3>Вайбкодинг</h3>
@@ -798,17 +893,17 @@
             <p class="section-text">Никаких сложных платформ — всё в привычном Telegram.</p>
 
             <div class="steps">
-                <div class="step reveal">
+                <div class="step reveal tilt">
                     <div class="step-num">1</div>
                     <h3>Подпишись на канал</h3>
                     <p>В канале лежат основы по всем трём направлениям — начни с них.</p>
                 </div>
-                <div class="step reveal">
+                <div class="step reveal tilt">
                     <div class="step-num">2</div>
                     <h3>Напиши в личку</h3>
                     <p>Выбери курс, задай вопросы и узнай цену и условия.</p>
                 </div>
-                <div class="step reveal">
+                <div class="step reveal tilt">
                     <div class="step-num">3</div>
                     <h3>Учись и практикуйся</h3>
                     <p>Получи доступ к урокам и проходи их в своём темпе.</p>
@@ -863,21 +958,21 @@
                 <p class="section-text">Подписывайся на канал с бесплатными основами или пиши мне напрямую.</p>
 
                 <div class="contact-cards">
-                    <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="contact-card" data-tg="channel" target="_blank" rel="noopener">
+                    <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="contact-card tilt" data-tg="channel" target="_blank" rel="noopener">
                         <span class="ic">📢</span>
                         <span>
                             <b>Telegram-канал</b>
                             <small>Бесплатные основы обучения</small>
                         </span>
                     </a>
-                    <a href="https://t.me/cunbent" class="contact-card" data-tg="dm" target="_blank" rel="noopener">
+                    <a href="https://t.me/cunbent" class="contact-card tilt" data-tg="dm" target="_blank" rel="noopener">
                         <span class="ic">✉️</span>
                         <span>
                             <b>Написать мне</b>
                             <small>Запись на курс и вопросы</small>
                         </span>
                     </a>
-                    <a href="https://t.me/Cunbent_bot" class="contact-card" data-tg="bot" target="_blank" rel="noopener">
+                    <a href="https://t.me/Cunbent_bot" class="contact-card tilt" data-tg="bot" target="_blank" rel="noopener">
                         <span class="ic">🤖</span>
                         <span>
                             <b>Бот Cunbent</b>
@@ -979,6 +1074,212 @@
         topButton.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
+    </script>
+
+
+    <!-- =========================
+         3D: библиотека Three.js и сцена
+    ========================= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        (function () {
+            const canvas = document.getElementById("scene3d");
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const isMobile = window.matchMedia("(max-width: 760px)").matches;
+
+            // Если 3D не поддерживается — просто убираем холст, сайт работает как раньше
+            if (!window.THREE) { canvas.remove(); return; }
+
+            let renderer;
+            try {
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !isMobile, alpha: true });
+            } catch (e) { canvas.remove(); return; }
+
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000000, 0.045);
+
+            const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(0, 0, 9);
+
+            const GOLD = 0xffd400, AMBER = 0xffaa00, LIGHT = 0xffe94d;
+
+            /* --- Свет --- */
+            scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+            const key = new THREE.PointLight(GOLD, 2.2, 40);
+            key.position.set(5, 5, 6);
+            scene.add(key);
+            const rim = new THREE.PointLight(AMBER, 1.6, 40);
+            rim.position.set(-6, -3, 3);
+            scene.add(rim);
+
+            /* --- Центральный кристалл --- */
+            const core = new THREE.Group();
+            scene.add(core);
+
+            const crystalGeo = new THREE.IcosahedronGeometry(1.7, 0);
+            const crystal = new THREE.Mesh(crystalGeo, new THREE.MeshStandardMaterial({
+                color: GOLD, metalness: 0.9, roughness: 0.22, flatShading: true,
+                emissive: 0x5a4200, emissiveIntensity: 0.8
+            }));
+            core.add(crystal);
+
+            const wire = new THREE.LineSegments(
+                new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(2.25, 1)),
+                new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.45 })
+            );
+            core.add(wire);
+
+            const ring = new THREE.Mesh(
+                new THREE.TorusGeometry(3.1, 0.02, 8, 120),
+                new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0.6 })
+            );
+            ring.rotation.x = Math.PI / 2.4;
+            core.add(ring);
+
+            /* --- Три орбитальные фигуры: трейдинг, чаттинг, вайбкодинг --- */
+            function orbiter(geo, color, radius, speed, phase, tilt) {
+                const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+                    color: color, metalness: 0.8, roughness: 0.3, flatShading: true,
+                    emissive: color, emissiveIntensity: 0.15
+                }));
+                core.add(mesh);
+                return { mesh, radius, speed, phase, tilt };
+            }
+            const orbiters = [
+                orbiter(new THREE.OctahedronGeometry(0.34), GOLD, 3.1, 0.5, 0, 0.35),          // трейдинг
+                orbiter(new THREE.TorusGeometry(0.24, 0.1, 12, 32), AMBER, 3.1, 0.5, 2.094, 0.35), // чаттинг
+                orbiter(new THREE.BoxGeometry(0.42, 0.42, 0.42), LIGHT, 3.1, 0.5, 4.188, 0.35)   // вайбкодинг
+            ];
+
+            /* --- Звёздная пыль --- */
+            const COUNT = isMobile ? 700 : 1800;
+            const pos = new Float32Array(COUNT * 3);
+            for (let i = 0; i < COUNT; i++) {
+                pos[i * 3]     = (Math.random() - 0.5) * 40;
+                pos[i * 3 + 1] = (Math.random() - 0.5) * 40;
+                pos[i * 3 + 2] = (Math.random() - 0.5) * 30 - 4;
+            }
+            const dustGeo = new THREE.BufferGeometry();
+            dustGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+            const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
+                color: GOLD, size: 0.045, transparent: true, opacity: 0.75, depthWrite: false
+            }));
+            scene.add(dust);
+
+            /* --- Неоновая сетка-пол --- */
+            const grid = new THREE.GridHelper(60, 60, GOLD, 0x3d3300);
+            grid.material.transparent = true;
+            grid.material.opacity = 0.35;
+            grid.position.y = -4;
+            scene.add(grid);
+
+            /* --- Мышь и прокрутка --- */
+            let mx = 0, my = 0, tx = 0, ty = 0, scrollP = 0;
+            window.addEventListener("pointermove", function (e) {
+                tx = (e.clientX / window.innerWidth - 0.5) * 2;
+                ty = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+            function onScroll() {
+                const max = document.documentElement.scrollHeight - window.innerHeight;
+                scrollP = max > 0 ? window.scrollY / max : 0;
+            }
+            window.addEventListener("scroll", onScroll, { passive: true });
+            onScroll();
+
+            window.addEventListener("resize", function () {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            /* --- Анимация --- */
+            const clock = new THREE.Clock();
+            let running = true;
+            document.addEventListener("visibilitychange", function () {
+                running = !document.hidden;
+                if (running) { clock.getDelta(); requestAnimationFrame(loop); }
+            });
+
+            function loop() {
+                if (!running) return;
+                const t = clock.getElapsedTime();
+                const speed = reduceMotion ? 0.15 : 1;
+
+                mx += (tx - mx) * 0.05;
+                my += (ty - my) * 0.05;
+
+                crystal.rotation.y = t * 0.35 * speed;
+                crystal.rotation.x = t * 0.18 * speed;
+                wire.rotation.y = -t * 0.12 * speed;
+                wire.rotation.z = t * 0.08 * speed;
+                ring.rotation.z = t * 0.2 * speed;
+
+                orbiters.forEach(function (o) {
+                    const a = t * o.speed * speed + o.phase;
+                    o.mesh.position.set(Math.cos(a) * o.radius, Math.sin(a) * o.radius * o.tilt, Math.sin(a) * o.radius);
+                    o.mesh.rotation.x = a * 2;
+                    o.mesh.rotation.y = a * 1.5;
+                });
+
+                // Пульсация
+                const s = 1 + Math.sin(t * 1.6) * 0.03;
+                crystal.scale.set(s, s, s);
+
+                // При прокрутке кристалл уезжает вправо и уменьшается, камера опускается
+                const shift = isMobile ? 0 : Math.min(scrollP * 4, 1) * 3.2;
+                core.position.x = shift;
+                core.position.y = -scrollP * 1.5;
+                core.position.z = -1.5 + Math.min(scrollP * 4, 1) * 1.5;
+                const sc = 1 - Math.min(scrollP * 2, 1) * 0.35;
+                core.scale.set(sc, sc, sc);
+                core.rotation.y = scrollP * Math.PI * 2;
+
+                dust.rotation.y = t * 0.02 + scrollP * 1.2;
+                dust.rotation.x = scrollP * 0.4;
+                grid.position.z = (t * 0.8) % 1;
+
+                camera.position.x = mx * 1.2;
+                camera.position.y = -my * 0.8 + scrollP * 1.5;
+                camera.lookAt(core.position.x * 0.5, core.position.y * 0.5, 0);
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+
+
+        /* =========================
+           3D-НАКЛОН КАРТОЧЕК (только мышь, не на телефоне)
+        ========================= */
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+
+            document.querySelectorAll(".tilt").forEach(function (card) {
+                if (card.classList.contains("course")) {
+                    const glare = document.createElement("div");
+                    glare.className = "glare";
+                    card.appendChild(glare);
+                }
+                const max = card.classList.contains("contact-card") ? 8 : 12;
+
+                card.addEventListener("pointermove", function (e) {
+                    const r = card.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width;
+                    const y = (e.clientY - r.top) / r.height;
+                    card.style.transform =
+                        "perspective(900px) rotateX(" + ((0.5 - y) * max) + "deg) rotateY(" + ((x - 0.5) * max) + "deg) translateY(-6px)";
+                    card.style.setProperty("--gx", x * 100 + "%");
+                    card.style.setProperty("--gy", y * 100 + "%");
+                });
+                card.addEventListener("pointerleave", function () {
+                    card.style.transform = "";
+                });
+            });
+        }
     </script>
 
 </body>
