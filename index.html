@@ -5,26 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cunbent — курсы по онлайн-заработку</title>
-    <meta name="description" content="Курсы по трейдингу, чаттингу OnlyFans и вайбкодингу. Обучение в Telegram.">
+    <meta name="description" content="Cunbent — обучение вайбкодингу, чаттингу OnlyFans и трейдингу. Материалы, курсы с проверкой и наставничество в Telegram.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- ШРИФТЫ: Unbounded (заголовки), Onest (текст), JetBrains Mono (подписи) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;800;900&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         /* =========================
            ЦВЕТА И ОСНОВА
+           Сайт чёрно-белый. --accent — единственный цветной акцент,
+           его можно поменять или сделать белым (#ffffff)
         ========================= */
 
         :root {
             --bg: #000000;
-            --bg-2: #0d0d0d;
-            --card: rgba(255, 255, 255, 0.04);
-            --border: rgba(255, 255, 255, 0.09);
-            --text: #f2f2f2;
-            --muted: #a3a3a3;
+            --white: #ffffff;
+            --text: #ededed;
+            --muted: #8f8f8f;
+            --line: rgba(255, 255, 255, 0.12);
+            --line-strong: rgba(255, 255, 255, 0.3);
+            --glass: rgba(10, 10, 10, 0.62);
+            --accent: #ffd400;
 
-            --trade: #ffd400;   /* трейдинг — жёлтый */
-            --chat: #ffaa00;    /* чаттинг — янтарный */
-            --code: #ffe94d;    /* вайбкодинг — светло-жёлтый */
-            --accent: #ffd400;  /* главный жёлтый */
-            --tg: #ffd400;      /* кнопки Telegram — тоже жёлтые */
+            --font-display: "Unbounded", "Arial Black", sans-serif;
+            --font-text: "Onest", "Segoe UI", Arial, sans-serif;
+            --font-mono: "JetBrains Mono", Consolas, monospace;
         }
 
         * {
@@ -39,48 +47,108 @@
 
         body {
             min-height: 100vh;
-            font-family: "Segoe UI", Arial, sans-serif;
+            font-family: var(--font-text);
+            font-size: 17px;
             color: var(--text);
-            line-height: 1.6;
-            background:
-                radial-gradient(circle at 15% 10%, rgba(255, 212, 0, 0.12), transparent 35%),
-                radial-gradient(circle at 85% 50%, rgba(255, 170, 0, 0.07), transparent 35%),
-                var(--bg);
+            line-height: 1.65;
+            background: var(--bg);
             overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--white);
+            color: #000;
         }
 
         a {
             color: inherit;
         }
 
+        /* Зернистость поверх всего сайта — эффект плёнки */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        #scene3d {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            display: block;
+        }
+
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
         section {
-            padding: 110px 20px 70px;
+            padding: 130px 24px 90px;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-label {
-            display: inline-block;
+        /* Подпись раздела: [ 01 ] О проекте */
+        .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-mono);
             font-size: 13px;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .label::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
         }
 
         h2 {
-            font-size: clamp(28px, 5vw, 42px);
-            line-height: 1.2;
-            margin-bottom: 16px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(30px, 5.2vw, 64px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 26px;
+            color: var(--white);
         }
 
-        .section-text {
+        /* Контурный текст — фирменный приём сайта */
+        /* Контур через тень: так внутри букв нет лишних линий */
+        .outline {
+            color: #000;
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0px -1px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 1px 0px 0 #fff;
+        }
+
+        .lead {
+            font-size: clamp(18px, 2vw, 22px);
+            color: var(--text);
+            max-width: 720px;
+            margin-bottom: 20px;
+        }
+
+        .muted {
             color: var(--muted);
-            max-width: 620px;
-            margin-bottom: 40px;
         }
 
         /* =========================
@@ -95,60 +163,63 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 40px;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
+            padding: 18px 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
             z-index: 1000;
         }
 
         .logo {
+            font-family: var(--font-display);
+            font-weight: 900;
             font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-decoration: none;
-            background: linear-gradient(90deg, var(--trade), var(--chat), var(--code));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: var(--white);
+        }
+
+        .logo i {
+            font-style: normal;
+            color: var(--accent);
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: 30px;
         }
 
         .nav-links a {
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
+            color: var(--muted);
             transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--white);
         }
 
-        .nav-links .nav-tg {
-            padding: 8px 18px;
+        .nav-links .nav-cta {
+            padding: 10px 20px;
             border-radius: 999px;
-            background: var(--tg);
+            background: var(--white);
             color: #000;
             font-weight: 600;
         }
 
-        .nav-links .nav-tg:hover {
+        .nav-links .nav-cta:hover {
             color: #000;
-            filter: brightness(1.1);
+            background: var(--accent);
         }
 
-        /* Кнопка-бургер (видна только на телефоне) */
         .burger {
             display: none;
             width: 44px;
             height: 44px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--line-strong);
             border-radius: 12px;
             background: transparent;
             cursor: pointer;
@@ -160,7 +231,7 @@
             left: 11px;
             width: 20px;
             height: 2px;
-            background: var(--text);
+            background: var(--white);
             transition: 0.3s;
         }
 
@@ -168,10 +239,65 @@
         .burger span:nth-child(2) { top: 21px; }
         .burger span:nth-child(3) { top: 27px; }
 
-        /* Бургер превращается в крестик */
         .burger.active span:nth-child(1) { top: 21px; transform: rotate(45deg); }
         .burger.active span:nth-child(2) { opacity: 0; }
         .burger.active span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+        /* =========================
+           КНОПКИ
+        ========================= */
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 17px 30px;
+            border-radius: 999px;
+            font-family: var(--font-text);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: #000;
+        }
+
+        .btn-white:hover {
+            background: var(--accent);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--line-strong);
+            color: var(--white);
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--white);
+        }
+
+        .btn .arrow {
+            font-family: var(--font-mono);
+            transition: transform 0.2s;
+        }
+
+        .btn:hover .arrow {
+            transform: translateX(4px);
+        }
 
         /* =========================
            ГЛАВНЫЙ ЭКРАН
@@ -181,481 +307,443 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            text-align: center;
-        }
-
-        .hero .small-title {
-            display: inline-block;
-            padding: 6px 16px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            font-size: 14px;
-            color: var(--muted);
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: clamp(36px, 7vw, 72px);
-            line-height: 1.1;
-            margin-bottom: 22px;
-        }
-
-        .hero h1 .grad {
-            background: linear-gradient(90deg, var(--trade), var(--chat), var(--code));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero-text {
-            color: var(--muted);
-            font-size: clamp(16px, 2.4vw, 20px);
-            max-width: 640px;
-            margin: 0 auto 36px;
-        }
-
-        .hero-niches {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 36px;
-        }
-
-        .niche-pill {
-            padding: 8px 18px;
-            border-radius: 999px;
-            border: 1px solid;
-            font-size: 15px;
-            text-decoration: none;
-        }
-
-        .niche-pill.trade { color: var(--trade); border-color: rgba(255, 212, 0, 0.45); }
-        .niche-pill.chat  { color: var(--chat);  border-color: rgba(255, 170, 0, 0.45); }
-        .niche-pill.code  { color: var(--code);  border-color: rgba(255, 233, 77, 0.45); }
-
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 15px 30px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-tg {
-            background: var(--tg);
-            color: #000;
-            box-shadow: 0 0 25px rgba(255, 212, 0, 0.35);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--border);
-            background: var(--card);
-        }
-
-        /* =========================
-           КУРСЫ
-        ========================= */
-
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        .course {
-            --c: var(--accent);
-            display: flex;
-            flex-direction: column;
-            padding: 30px 26px;
-            border-radius: 22px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--c);
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-
-        .course:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 40px -10px var(--c);
-        }
-
-        .course.trade { --c: var(--trade); }
-        .course.chat  { --c: var(--chat); }
-        .course.code  { --c: var(--code); }
-
-        .course-icon {
-            font-size: 40px;
-            margin-bottom: 12px;
-        }
-
-        .course-tag {
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--c);
-            margin-bottom: 6px;
-        }
-
-        .course h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .course > p {
-            color: var(--muted);
-            margin-bottom: 18px;
-        }
-
-        .course ul {
-            list-style: none;
-            margin-bottom: 24px;
-            flex-grow: 1;
-        }
-
-        .course li {
-            padding-left: 26px;
             position: relative;
-            margin-bottom: 8px;
-            font-size: 15px;
+            padding-top: 120px;
         }
 
-        .course li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--c);
-            font-weight: bold;
-        }
-
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: var(--muted);
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
-            margin-bottom: 18px;
-        }
-
-        .course-meta b {
-            color: var(--text);
-        }
-
-        .course .btn {
-            width: 100%;
-            background: var(--c);
-            color: #000000;
-        }
-
-        /* =========================
-           КАК ПРОХОДИТ ОБУЧЕНИЕ
-        ========================= */
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        .step {
-            padding: 26px;
-            border-radius: 20px;
-            background: var(--card);
-            border: 1px solid var(--border);
-        }
-
-        .step-num {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            background: rgba(255, 212, 0, 0.12);
-            color: var(--accent);
-            margin-bottom: 14px;
-        }
-
-        .step h3 {
-            margin-bottom: 6px;
-        }
-
-        .step p {
-            color: var(--muted);
-            font-size: 15px;
-        }
-
-        /* Жёлтая плашка-слоган */
-        .promise {
-            margin-top: 28px;
-            padding: 28px 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 212, 0, 0.45);
-            background:
-                linear-gradient(90deg, rgba(255, 212, 0, 0.14), rgba(255, 212, 0, 0.03));
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .promise-icon {
-            font-size: 34px;
-            flex-shrink: 0;
-        }
-
-        .promise p {
-            font-size: clamp(18px, 2.6vw, 24px);
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .promise span {
-            color: var(--accent);
-        }
-
-        /* =========================
-           ВОПРОСЫ
-        ========================= */
-
-        .faq {
-            max-width: 760px;
-        }
-
-        .faq details {
-            border: 1px solid var(--border);
-            background: var(--card);
-            border-radius: 16px;
-            margin-bottom: 12px;
-            padding: 18px 22px;
-        }
-
-        .faq summary {
-            cursor: pointer;
-            font-weight: 600;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .faq summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .faq summary::after {
-            content: "+";
-            color: var(--accent);
-            font-size: 22px;
-            line-height: 1;
-            transition: transform 0.2s;
-        }
-
-        .faq details[open] summary::after {
-            transform: rotate(45deg);
-        }
-
-        .faq details p {
-            color: var(--muted);
-            margin-top: 12px;
-        }
-
-        /* =========================
-           КОНТАКТЫ
-        ========================= */
-
-        .contact-box {
-            text-align: center;
-            padding: 50px 26px;
-            border-radius: 26px;
-            background:
-                radial-gradient(circle at 50% 0%, rgba(255, 212, 0, 0.14), transparent 60%),
-                var(--card);
-            border: 1px solid var(--border);
-        }
-
-        .contact-box .section-text {
-            margin: 0 auto 32px;
-        }
-
-        .contact-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .contact-card {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 20px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            text-decoration: none;
-            text-align: left;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .contact-card:hover {
-            border-color: var(--tg);
-            transform: translateY(-3px);
-        }
-
-        .contact-card .ic {
-            width: 48px;
-            height: 48px;
-            flex-shrink: 0;
-            border-radius: 14px;
-            background: var(--tg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-
-        .contact-card b {
-            display: block;
-        }
-
-        .contact-card small {
-            color: var(--muted);
-        }
-
-        /* =========================
-           ПОДВАЛ
-        ========================= */
-
-        footer {
-            text-align: center;
-            padding: 40px 20px 50px;
-            color: var(--muted);
-            font-size: 13px;
-            border-top: 1px solid var(--border);
-        }
-
-        footer .disclaimer {
-            max-width: 720px;
-            margin: 12px auto 0;
-            opacity: 0.8;
-        }
-
-        /* Кнопка наверх */
-        #topButton {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            background: rgba(13, 13, 13, 0.9);
-            color: var(--text);
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 900;
-        }
-
-        #topButton.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Плавное появление блоков при прокрутке */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* =========================
-           3D-СЦЕНА
-        ========================= */
-
-        #scene3d {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            display: block;
-        }
-
-        section,
-        footer {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Затемнение снизу героя, чтобы текст читался поверх 3D */
-        .hero::after {
+        .hero::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.35) 40%, transparent 70%);
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 70%);
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Карточки чуть плотнее, чтобы 3D не мешал тексту */
-        .course,
-        .step,
-        .faq details,
-        .contact-box {
-            background: rgba(10, 10, 10, 0.72);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+        .hero .container {
+            width: 100%;
         }
 
-        /* 3D-наклон карточек */
-        .tilt {
-            transform-style: preserve-3d;
-            will-change: transform;
+        .hero-tag {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 26px;
         }
 
-        .tilt.visible {
-            transition: transform 0.15s ease-out, box-shadow 0.25s, opacity 0.6s;
+        .hero-tag b {
+            color: var(--white);
+            font-weight: 600;
         }
 
-        .tilt .course-icon,
-        .tilt h3 {
-            transform: translateZ(40px);
+        .hero h1 {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: clamp(40px, 7vw, 100px);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 34px;
         }
 
-        .tilt .glare {
+        .hero h1 span {
+            display: block;
+        }
+
+        .hero h1 .light {
+            font-weight: 300;
+        }
+
+        .hero-bottom {
+            display: grid;
+            grid-template-columns: minmax(0, 520px) 260px;
+            gap: 60px;
+            align-items: end;
+        }
+
+        .hero-text {
+            font-size: clamp(17px, 1.6vw, 19px);
+            color: #cfcfcf;
+            margin-bottom: 30px;
+        }
+
+        .hero-niches {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+        }
+
+        .hero-niches a {
+            display: flex;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--muted);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--line);
+            min-width: 230px;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .hero-niches a:hover {
+            color: var(--white);
+            padding-left: 6px;
+        }
+
+        .hero-niches a span {
+            color: var(--white);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            right: 40px;
+            bottom: 28px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--muted);
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scroll-hint::after {
+            content: "";
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(var(--white), transparent);
+            animation: drip 2s infinite;
+        }
+
+        @keyframes drip {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* =========================
+           БЕГУЩАЯ СТРОКА
+        ========================= */
+
+        .marquee {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.55);
+            padding: 22px 0;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 32s linear infinite;
+        }
+
+        .marquee-track span {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(28px, 4.5vw, 56px);
+            text-transform: uppercase;
+            white-space: nowrap;
+            padding-right: 40px;
+            color: #000;
+            text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.6), 1px -1px 0 rgba(255, 255, 255, 0.6), -1px 1px 0 rgba(255, 255, 255, 0.6), 1px 1px 0 rgba(255, 255, 255, 0.6), 0px -1px 0 rgba(255, 255, 255, 0.6), 0px 1px 0 rgba(255, 255, 255, 0.6), -1px 0px 0 rgba(255, 255, 255, 0.6), 1px 0px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .marquee-track span:nth-child(even) {
+            color: var(--white);
+            text-shadow: none;
+        }
+
+        @keyframes marquee {
+            to { transform: translateX(-50%); }
+        }
+
+        /* =========================
+           О ПРОЕКТЕ
+        ========================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: #c9c9c9;
+            margin-bottom: 18px;
+        }
+
+        .about-text p strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .word-card {
+            padding: 34px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .word-card .word {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: clamp(40px, 5vw, 64px);
+            line-height: 1;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .word-card .transcription {
+            font-family: var(--font-mono);
+            color: var(--muted);
+            font-size: 14px;
+            margin: 10px 0 20px;
+        }
+
+        .word-card p {
+            color: #c9c9c9;
+        }
+
+        .principles {
+            margin-top: 70px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--line);
+        }
+
+        .principle {
+            padding: 28px 24px 10px 0;
+        }
+
+        .principle + .principle {
+            padding-left: 24px;
+            border-left: 1px solid var(--line);
+        }
+
+        .principle .num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .principle h3 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 1.3;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .principle p {
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        /* =========================
+           ЦИФРЫ
+        ========================= */
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .fact {
+            padding: 30px 26px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fact::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 26px;
+            right: 26px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--white), transparent);
+            opacity: 0.6;
+        }
+
+        .fact b {
+            display: block;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(40px, 4.4vw, 60px);
+            line-height: 1;
+            color: var(--white);
+            margin-bottom: 14px;
+        }
+
+        .fact b small {
+            font-size: 0.4em;
+            font-weight: 500;
+        }
+
+        .fact span {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* =========================
+           КУРСЫ — большие строки
+        ========================= */
+
+        .course {
+            display: grid;
+            grid-template-columns: 90px 1fr 1fr;
+            gap: 30px;
+            padding: 46px 40px;
+            margin-bottom: 18px;
+            border: 1px solid var(--line);
+            border-radius: 32px;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course:hover {
+            border-color: var(--line-strong);
+        }
+
+        .course-num {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .course-title {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(30px, 3.6vw, 48px);
+            line-height: 1.05;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .course-sub {
+            color: #c9c9c9;
+            margin-bottom: 22px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 26px;
+        }
+
+        .chip {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            color: var(--text);
+        }
+
+        .chip.off {
+            color: #555;
+            border-color: rgba(255, 255, 255, 0.08);
+            text-decoration: line-through;
+        }
+
+        .course h4 {
+            font-family: var(--font-mono);
+            font-weight: 400;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .course ul {
+            list-style: none;
+            margin-bottom: 26px;
+        }
+
+        .course li {
+            position: relative;
+            padding: 9px 0 9px 28px;
+            border-bottom: 1px solid var(--line);
+            font-size: 16px;
+        }
+
+        .course li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-family: var(--font-mono);
+            color: var(--white);
+        }
+
+        .course .for-whom {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 26px;
+        }
+
+        .course .for-whom b {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .course-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .price {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .price b {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: var(--white);
+            margin-left: 6px;
+        }
+
+        /* Блик при наведении */
+        .glare {
             position: absolute;
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 212, 0, 0.16), transparent 55%);
+            background: radial-gradient(600px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.07), transparent 45%);
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -664,41 +752,514 @@
             opacity: 1;
         }
 
-        .course {
+        /* =========================
+           ФОРМАТЫ ОБУЧЕНИЯ
+        ========================= */
+
+        .formats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .format {
+            padding: 34px 30px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
             position: relative;
+            overflow: hidden;
         }
 
-        .hero-text {
-            color: #d6d6d6;
-            text-shadow: 0 2px 12px #000, 0 0 4px #000;
+        .format.featured {
+            background: var(--white);
+            color: #000;
+            border-color: var(--white);
         }
 
-        /* Объёмный заголовок */
-        .hero h1 {
-            text-shadow: 0 1px 0 #444, 0 2px 0 #333, 0 3px 0 #222, 0 6px 20px rgba(0, 0, 0, 0.8);
+        .format .lvl {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 18px;
         }
 
-        .hero h1 .grad {
-            text-shadow: none;
-            filter: drop-shadow(0 3px 0 #6b5400) drop-shadow(0 0 18px rgba(255, 212, 0, 0.35));
+        .format.featured .lvl {
+            color: #555;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .tilt { transform: none !important; }
+        .format h3 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(19px, 5.6vw, 24px);
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            color: inherit;
+        }
+
+        .format > p {
+            color: #b8b8b8;
+            margin-bottom: 22px;
+        }
+
+        .format.featured > p {
+            color: #333;
+        }
+
+        .format ul {
+            list-style: none;
+            flex-grow: 1;
+            margin-bottom: 22px;
+        }
+
+        .format li {
+            padding: 7px 0 7px 22px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .format li::before {
+            content: "+";
+            position: absolute;
+            left: 0;
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+
+        .format .where {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+        }
+
+        .format.featured .where {
+            border-color: rgba(0, 0, 0, 0.15);
+            color: #555;
         }
 
         /* =========================
-           ТЕЛЕФОНЫ И ПЛАНШЕТЫ
+           КАК ПРОХОДИТ
         ========================= */
 
-        @media (max-width: 900px) {
-            .courses-grid,
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            counter-reset: step;
+        }
+
+        .step {
+            padding: 30px 26px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 54px;
+            line-height: 1;
+            margin-bottom: 22px;
+            color: #000;
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0px -1px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 1px 0px 0 #fff;
+        }
+
+        .step h3 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 1.3;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .promise {
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .promise p {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(24px, 4vw, 52px);
+            line-height: 1.15;
+            text-transform: uppercase;
+            max-width: 1000px;
+            margin: 0 auto;
+            color: var(--white);
+        }
+
+        /* =========================
+           КОМУ ПОДОЙДЁТ
+        ========================= */
+
+        .fit {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .fit-col {
+            padding: 36px 32px;
+            border-radius: 28px;
+            border: 1px solid var(--line);
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .fit-col h3 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 22px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .fit-col ul {
+            list-style: none;
+        }
+
+        .fit-col li {
+            padding: 12px 0 12px 32px;
+            position: relative;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .fit-col li:last-child {
+            border-bottom: none;
+        }
+
+        .fit-col li::before {
+            position: absolute;
+            left: 0;
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+
+        .fit-col.yes li::before {
+            content: "[+]";
+            color: var(--white);
+            font-size: 13px;
+            top: 15px;
+        }
+
+        .fit-col.no {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .fit-col.no li {
+            color: var(--muted);
+        }
+
+        .fit-col.no li::before {
+            content: "[–]";
+            color: #666;
+            font-size: 13px;
+            top: 15px;
+        }
+
+        /* =========================
+           ВОПРОСЫ
+        ========================= */
+
+        .faq-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .faq details {
+            border-bottom: 1px solid var(--line);
+            padding: 22px 0;
+        }
+
+        .faq summary {
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 18px;
+            color: var(--white);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .faq summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq summary::after {
+            content: "+";
+            font-family: var(--font-mono);
+            font-size: 22px;
+            line-height: 1;
+            transition: transform 0.25s;
+            flex-shrink: 0;
+        }
+
+        .faq details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq details p {
+            color: var(--muted);
+            margin-top: 14px;
+            max-width: 620px;
+        }
+
+        /* =========================
+           КОНТАКТЫ
+        ========================= */
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: clamp(36px, 8vw, 110px);
+            margin-bottom: 22px;
+        }
+
+        .contact .lead {
+            margin: 0 auto 50px;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            text-align: left;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 190px;
+            padding: 26px;
+            border-radius: 26px;
+            border: 1px solid var(--line);
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-decoration: none;
+            transition: background 0.25s, color 0.25s, border-color 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card:hover {
+            background: var(--white);
+            color: #000;
+            border-color: var(--white);
+        }
+
+        .contact-card .top {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .contact-card:hover .top {
+            color: #555;
+        }
+
+        .contact-card b {
+            display: block;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 22px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .contact-card small {
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .contact-card:hover small {
+            color: #444;
+        }
+
+        /* =========================
+           ПОДВАЛ
+        ========================= */
+
+        footer {
+            overflow: hidden;
+            padding: 50px 24px 60px;
+            border-top: 1px solid var(--line);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .footer-big {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: clamp(48px, 13.5vw, 210px);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            text-align: center;
+            color: #000;
+            text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.25), 1px -1px 0 rgba(255, 255, 255, 0.25), -1px 1px 0 rgba(255, 255, 255, 0.25), 1px 1px 0 rgba(255, 255, 255, 0.25), 0px -1px 0 rgba(255, 255, 255, 0.25), 0px 1px 0 rgba(255, 255, 255, 0.25), -1px 0px 0 rgba(255, 255, 255, 0.25), 1px 0px 0 rgba(255, 255, 255, 0.25);
+            margin-bottom: 40px;
+            user-select: none;
+        }
+
+        .footer-row {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .footer-row a {
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .footer-row a:hover {
+            color: var(--white);
+        }
+
+        .disclaimer {
+            max-width: 1200px;
+            margin: 26px auto 0;
+            font-size: 13px;
+            color: #6b6b6b;
+        }
+
+        /* Кнопка наверх */
+        #topButton {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            font-family: var(--font-mono);
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, background 0.2s, color 0.2s;
+            z-index: 900;
+        }
+
+        #topButton:hover {
+            background: var(--white);
+            color: #000;
+        }
+
+        #topButton.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Появление блоков при прокрутке */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .tilt {
+            transform-style: preserve-3d;
+        }
+
+        .tilt.visible {
+            transition: transform 0.15s ease-out, opacity 0.8s, background 0.25s, color 0.25s, border-color 0.25s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track,
+            .scroll-hint::after {
+                animation: none;
+            }
+
+            .tilt {
+                transform: none !important;
+            }
+        }
+
+        /* =========================
+           ПЛАНШЕТЫ И ТЕЛЕФОНЫ
+        ========================= */
+
+        @media (max-width: 1000px) {
+            .about-grid,
+            .faq-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .principles,
+            .facts,
             .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .principle:nth-child(3) {
+                padding-left: 0;
+                border-left: none;
+            }
+
+            .course {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 34px 28px;
+            }
+
+            .formats {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 760px) {
+            body {
+                font-size: 16px;
+            }
+
             .navbar {
                 padding: 12px 16px;
             }
@@ -707,7 +1268,6 @@
                 display: block;
             }
 
-            /* Меню выезжает сверху */
             .nav-links {
                 position: fixed;
                 top: 69px;
@@ -716,9 +1276,9 @@
                 flex-direction: column;
                 align-items: stretch;
                 gap: 0;
-                padding: 10px 16px 20px;
-                background: #000000;
-                border-bottom: 1px solid var(--border);
+                padding: 10px 16px 22px;
+                background: #000;
+                border-bottom: 1px solid var(--line);
                 transform: translateY(-120%);
                 opacity: 0;
                 pointer-events: none;
@@ -732,27 +1292,69 @@
             }
 
             .nav-links a {
-                padding: 14px 4px;
+                padding: 15px 4px;
                 font-size: 18px;
-                border-bottom: 1px solid var(--border);
+                color: var(--white);
+                border-bottom: 1px solid var(--line);
             }
 
-            .nav-links .nav-tg {
-                margin-top: 14px;
+            .nav-links .nav-cta {
+                margin-top: 16px;
                 text-align: center;
                 border-bottom: none;
             }
 
             section {
-                padding: 90px 16px 50px;
+                padding: 90px 16px 60px;
             }
 
+            .hero {
+                padding-top: 110px;
+                padding-bottom: 110px;
+            }
+
+            .hero::before {
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75));
+            }
+
+            .hero-bottom {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 12.5vw;
+            }
+
+            .principles,
+            .facts,
+            .steps,
+            .fit,
             .contact-cards {
                 grid-template-columns: 1fr;
             }
 
+            .principle,
+            .principle + .principle {
+                padding: 24px 0 8px;
+                border-left: none;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .course {
+                padding: 28px 20px;
+                border-radius: 24px;
+            }
+
             .btn {
                 width: 100%;
+            }
+
+            .course-bottom .btn {
+                width: 100%;
+            }
+
+            .footer-row a {
+                margin: 0 20px 0 0;
             }
         }
     </style>
@@ -763,217 +1365,472 @@
     <!-- 3D-ФОН -->
     <canvas id="scene3d" aria-hidden="true"></canvas>
 
+
     <!-- НАВИГАЦИЯ -->
 
     <nav class="navbar">
-        <a href="#home" class="logo">CUNBENT</a>
+        <a href="#home" class="logo">CUNBENT<i>.</i></a>
 
         <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
 
         <div class="nav-links" id="navLinks">
+            <a href="#about">О проекте</a>
             <a href="#courses">Курсы</a>
-            <a href="#how">Как проходит</a>
+            <a href="#formats">Форматы</a>
             <a href="#faq">Вопросы</a>
             <a href="#contact">Контакты</a>
-            <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="nav-tg" data-tg="channel" target="_blank" rel="noopener">Telegram-канал</a>
+            <a href="https://t.me/cunbent" class="nav-cta" data-tg="dm" target="_blank" rel="noopener">Написать мне</a>
         </div>
     </nav>
 
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <main>
 
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="small-title">Обучение онлайн-заработку · 18+</div>
+        <!-- ГЛАВНЫЙ ЭКРАН -->
 
-            <h1>Освой навык,<br>который <span class="grad">приносит деньги</span></h1>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-tag">[ <b>Cunbent</b> ] — обучение онлайн-заработку · 18+</div>
 
-            <p class="hero-text">
-                Три направления на выбор: трейдинг, чаттинг OnlyFans и вайбкодинг.
-                Всё обучение проходит в Telegram — уроки, разборы и поддержка.
-            </p>
+                <h1>
+                    <span>Освой</span>
+                    <span class="light">навык,</span>
+                    <span>который</span>
+                    <span class="outline">платит</span>
+                </h1>
 
-            <div class="hero-niches">
-                <a href="#course-trade" class="niche-pill trade">📈 Трейдинг</a>
-                <a href="#course-chat" class="niche-pill chat">💬 Чаттинг OnlyFans</a>
-                <a href="#course-code" class="niche-pill code">🤖 Вайбкодинг</a>
+                <div class="hero-bottom">
+                    <div>
+                        <p class="hero-text">
+                            Учу тому, что приносит деньги в интернете: делать сайты и ботов с помощью нейросетей,
+                            работать чаттером и разбираться в трейдинге. Без воды, без сложных платформ —
+                            всё обучение проходит в Telegram.
+                        </p>
+                        <div class="buttons">
+                            <a href="#courses" class="btn btn-white">Выбрать курс <span class="arrow">→</span></a>
+                            <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="btn btn-ghost" data-tg="channel" target="_blank" rel="noopener">Бесплатные основы в канале</a>
+                        </div>
+                    </div>
+
+                    <div class="hero-niches">
+                        <a href="#course-code"><span>01</span> Вайбкодинг</a>
+                        <a href="#course-chat"><span>02</span> Чаттинг OnlyFans</a>
+                        <a href="#course-trade"><span>03</span> Трейдинг</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="buttons">
-                <a href="#courses" class="btn btn-tg">Выбрать курс</a>
-                <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="btn btn-outline" data-tg="channel" target="_blank" rel="noopener">Бесплатные материалы в канале</a>
+            <div class="scroll-hint">Листай</div>
+        </section>
+
+
+        <!-- БЕГУЩАЯ СТРОКА -->
+
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>Вайбкодинг ✦</span><span>Чаттинг ✦</span><span>Трейдинг ✦</span><span>Telegram ✦</span>
+                <span>Вайбкодинг ✦</span><span>Чаттинг ✦</span><span>Трейдинг ✦</span><span>Telegram ✦</span>
             </div>
         </div>
-    </section>
 
 
-    <!-- КУРСЫ -->
+        <!-- О ПРОЕКТЕ -->
 
-    <section id="courses">
-        <div class="container">
-            <div class="section-label">Курсы</div>
-            <h2>Что ты можешь изучить</h2>
-            <p class="section-text">
-                Выбери направление, которое тебе ближе. Напиши мне в личные сообщения —
-                расскажу подробнее о программе и цене.
-            </p>
+        <section id="about">
+            <div class="container">
+                <div class="label">[ 01 ] О проекте</div>
 
-            <div class="courses-grid">
-
-                <!-- Курс 1: Трейдинг -->
-                <div class="course trade reveal tilt" id="course-trade">
-                    <div class="course-icon">📈</div>
-                    <div class="course-tag">Курс №1</div>
-                    <h3>Трейдинг</h3>
-                    <p>Как устроены рынки и как торговать осознанно, а не наугад.</p>
-                    <ul>
-                        <li>Основы рынка и терминология</li>
-                        <li>Чтение графиков и технический анализ</li>
-                        <li>Риск-менеджмент и управление капиталом</li>
-                        <li>Торговая стратегия и дневник сделок</li>
-                    </ul>
-                    <div class="course-meta">
-                        <span>Формат: <b>Telegram</b></span>
-                        <span>Цена: <b>в ЛС</b></span>
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <h2>Не ломаться.<br><span class="outline">Расти.</span></h2>
+                        <p class="lead">
+                            Cunbent — это мой проект, где я учу людей зарабатывать в интернете на понятных навыках.
+                        </p>
+                        <p>
+                            Я не продаю «секретные схемы» и не обещаю миллион за неделю. Я показываю, как
+                            работает конкретная профессия, даю инструменты и помогаю дойти до первых результатов —
+                            <strong>в твоём темпе и без лишней теории</strong>.
+                        </p>
+                        <p>
+                            Главное направление — <strong>вайбкодинг</strong>: создание сайтов, лендингов и
+                            Telegram-ботов с помощью нейросетей. Этот сайт и бот Cunbent сделаны именно так —
+                            тем же способом, которому я учу на курсе.
+                        </p>
+                        <p>
+                            Второе направление — <strong>чаттинг OnlyFans</strong>: работа в переписке от лица модели,
+                            продажи и общение с подписчиками. И третье — <strong>трейдинг</strong> в формате
+                            структурированных материалов для самостоятельного изучения.
+                        </p>
                     </div>
-                    <a href="https://t.me/cunbent" class="btn" data-tg="dm" target="_blank" rel="noopener">Хочу на курс</a>
+
+                    <div class="word-card reveal tilt">
+                        <div class="word">Unbent</div>
+                        <div class="transcription">[ ʌnˈbent ] — англ. «несогнутый, несгибаемый»</div>
+                        <p>
+                            Отсюда и название Cunbent. Идея простая: в онлайн-заработке много шума,
+                            неудач и людей, которые сдаются после первой ошибки. Здесь учат не сгибаться —
+                            разбираться, пробовать снова и доводить дело до результата.
+                        </p>
+                    </div>
                 </div>
+
+                <div class="principles">
+                    <div class="principle reveal">
+                        <div class="num">/01</div>
+                        <h3>Практика, а не теория</h3>
+                        <p>Каждая тема заканчивается действием: сделать, отправить, запустить.</p>
+                    </div>
+                    <div class="principle reveal">
+                        <div class="num">/02</div>
+                        <h3>Честно о результатах</h3>
+                        <p>Доход зависит от твоих усилий. Обещаю знания и поддержку, а не цифры.</p>
+                    </div>
+                    <div class="principle reveal">
+                        <div class="num">/03</div>
+                        <h3>Всё в Telegram</h3>
+                        <p>Никаких платформ и паролей — уроки, задания и общение в одном мессенджере.</p>
+                    </div>
+                    <div class="principle reveal">
+                        <div class="num">/04</div>
+                        <h3>Живое общение</h3>
+                        <p>Можно задать вопрос и получить ответ от человека, а не от автоответчика.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ЦИФРЫ -->
+
+        <section id="facts" style="padding-top: 20px;">
+            <div class="container">
+                <div class="facts">
+                    <div class="fact reveal">
+                        <b>3</b>
+                        <span>направления: вайбкодинг, чаттинг и трейдинг</span>
+                    </div>
+                    <div class="fact reveal">
+                        <b>3</b>
+                        <span>формата: материалы, курс с проверкой, наставничество</span>
+                    </div>
+                    <div class="fact reveal">
+                        <b>0</b>
+                        <span>сложных платформ — учишься прямо в Telegram</span>
+                    </div>
+                    <div class="fact reveal">
+                        <b>559<small> ₽</small></b>
+                        <span>стартовая цена обучения вайбкодингу</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- КУРСЫ -->
+
+        <section id="courses">
+            <div class="container">
+                <div class="label">[ 02 ] Курсы</div>
+                <h2>Три пути.<br><span class="outline">Выбери свой.</span></h2>
+                <p class="lead muted" style="margin-bottom: 50px;">
+                    Начать можно с нуля в любом направлении. Не знаешь, что выбрать — напиши мне,
+                    помогу определиться под твои цели и время.
+                </p>
+
+                <!-- Курс 1: Вайбкодинг -->
+                <article class="course reveal tilt" id="course-code">
+                    <div class="course-num">/01</div>
+                    <div>
+                        <h3 class="course-title">Вайбкодинг</h3>
+                        <p class="course-sub">
+                            Создание сайтов, лендингов и Telegram-ботов с помощью нейросетей — без глубокого знания кода.
+                            Ты ставишь задачу ИИ, а он пишет код. Моя задача — научить тебя делать это правильно
+                            и превращать в деньги.
+                        </p>
+                        <div class="chips">
+                            <span class="chip">Материалы</span>
+                            <span class="chip">С проверкой</span>
+                            <span class="chip">Наставничество</span>
+                        </div>
+                        <p class="for-whom"><b>Кому подойдёт:</b> новичкам без опыта в программировании, фрилансерам,
+                            тем, кто хочет свой сайт или бота для бизнеса.</p>
+                    </div>
+                    <div>
+                        <h4>Что внутри</h4>
+                        <ul>
+                            <li>Как ставить задачи нейросети, чтобы получать рабочий код</li>
+                            <li>Сайты и лендинги: от идеи до готовой страницы</li>
+                            <li>Telegram-боты: заявки, меню, автоответы</li>
+                            <li>Публикация проекта в интернет</li>
+                            <li>Где искать первых заказчиков и как оценивать работу</li>
+                        </ul>
+                        <div class="course-bottom">
+                            <div class="price">Цена:<b>от 559 ₽</b></div>
+                            <a href="https://t.me/Cunbent_bot" class="btn btn-white" data-tg="bot" target="_blank" rel="noopener">Записаться через бота <span class="arrow">→</span></a>
+                        </div>
+                    </div>
+                </article>
 
                 <!-- Курс 2: Чаттинг OnlyFans -->
-                <div class="course chat reveal tilt" id="course-chat">
-                    <div class="course-icon">💬</div>
-                    <div class="course-tag">Курс №2 · 18+</div>
-                    <h3>Чаттинг OnlyFans</h3>
-                    <p>Работа чаттером: общение с подписчиками от лица модели и продажи в переписке.</p>
-                    <ul>
-                        <li>Как устроена работа чаттера и агентств</li>
-                        <li>Скрипты общения и продаж</li>
-                        <li>Работа на смене: правила и KPI</li>
-                        <li>Как найти первую работу</li>
-                    </ul>
-                    <div class="course-meta">
-                        <span>Формат: <b>Telegram</b></span>
-                        <span>Цена: <b>в ЛС</b></span>
+                <article class="course reveal tilt" id="course-chat">
+                    <div class="course-num">/02 · 18+</div>
+                    <div>
+                        <h3 class="course-title">Чаттинг OnlyFans</h3>
+                        <p class="course-sub">
+                            Чаттер общается с подписчиками от лица модели и продаёт контент в переписке.
+                            Это удалённая работа на сменах, где решают навыки общения и продаж — и им можно научиться.
+                        </p>
+                        <div class="chips">
+                            <span class="chip">Материалы</span>
+                            <span class="chip">С проверкой</span>
+                            <span class="chip">Наставничество</span>
+                        </div>
+                        <p class="for-whom"><b>Кому подойдёт:</b> тем, кто хорошо пишет, умеет общаться
+                            и ищет удалённую работу с гибким графиком. Только 18+.</p>
                     </div>
-                    <a href="https://t.me/cunbent" class="btn" data-tg="dm" target="_blank" rel="noopener">Хочу на курс</a>
-                </div>
-
-                <!-- Курс 3: Вайбкодинг -->
-                <div class="course code reveal tilt" id="course-code">
-                    <div class="course-icon">🤖</div>
-                    <div class="course-tag">Курс №3</div>
-                    <h3>Вайбкодинг</h3>
-                    <p>Создание сайтов, ботов и приложений с помощью нейросетей — без глубокого знания кода.</p>
-                    <ul>
-                        <li>Как ставить задачи нейросети</li>
-                        <li>Сайты, лендинги и Telegram-боты</li>
-                        <li>Публикация проекта в интернет</li>
-                        <li>Где искать первых заказчиков</li>
-                    </ul>
-                    <div class="course-meta">
-                        <span>Формат: <b>Telegram</b></span>
-                        <span>Цена: <b>от 559 ₽</b></span>
+                    <div>
+                        <h4>Что внутри</h4>
+                        <ul>
+                            <li>Как устроена работа чаттера и агентств</li>
+                            <li>Скрипты общения и продаж в переписке</li>
+                            <li>Работа на смене: правила, KPI и типичные ошибки</li>
+                            <li>Как пройти отбор и найти первую работу</li>
+                        </ul>
+                        <div class="course-bottom">
+                            <div class="price">Цена:<b>в ЛС</b></div>
+                            <a href="https://t.me/cunbent" class="btn btn-white" data-tg="dm" target="_blank" rel="noopener">Хочу на курс <span class="arrow">→</span></a>
+                        </div>
                     </div>
-                    <a href="https://t.me/Cunbent_bot" class="btn" data-tg="bot" target="_blank" rel="noopener">Записаться через бота</a>
+                </article>
+
+                <!-- Курс 3: Трейдинг -->
+                <article class="course reveal tilt" id="course-trade">
+                    <div class="course-num">/03</div>
+                    <div>
+                        <h3 class="course-title">Трейдинг</h3>
+                        <p class="course-sub">
+                            Структурированные материалы о том, как устроены рынки и как подходить к торговле
+                            осознанно, а не наугад. Изучаешь самостоятельно, в своём темпе.
+                        </p>
+                        <div class="chips">
+                            <span class="chip">Материалы</span>
+                            <span class="chip off">С проверкой</span>
+                            <span class="chip off">Наставничество</span>
+                        </div>
+                        <p class="for-whom"><b>Кому подойдёт:</b> тем, кто хочет разобраться в основах рынка
+                            и готов изучать тему самостоятельно.</p>
+                    </div>
+                    <div>
+                        <h4>Что внутри</h4>
+                        <ul>
+                            <li>Основы рынка и терминология</li>
+                            <li>Чтение графиков и технический анализ</li>
+                            <li>Риск-менеджмент и управление капиталом</li>
+                            <li>Торговая стратегия и дневник сделок</li>
+                        </ul>
+                        <div class="course-bottom">
+                            <div class="price">Цена:<b>в ЛС</b></div>
+                            <a href="https://t.me/cunbent" class="btn btn-ghost" data-tg="dm" target="_blank" rel="noopener">Получить материалы <span class="arrow">→</span></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- ФОРМАТЫ ОБУЧЕНИЯ -->
+
+        <section id="formats">
+            <div class="container">
+                <div class="label">[ 03 ] Форматы</div>
+                <h2>Сколько тебе<br><span class="outline">нужно помощи?</span></h2>
+                <p class="lead muted" style="margin-bottom: 50px;">
+                    Один и тот же навык можно изучать по-разному. Выбери уровень поддержки,
+                    который подходит именно тебе.
+                </p>
+
+                <div class="formats">
+                    <div class="format reveal tilt">
+                        <div class="lvl">Уровень 1</div>
+                        <h3>Материалы</h3>
+                        <p>Уроки и конспекты, которые проходишь самостоятельно.</p>
+                        <ul>
+                            <li>Пошаговые уроки по теме</li>
+                            <li>Учишься в своём темпе</li>
+                            <li>Самый доступный вариант</li>
+                        </ul>
+                        <div class="where">Вайбкодинг · Чаттинг · Трейдинг</div>
+                    </div>
+
+                    <div class="format featured reveal tilt">
+                        <div class="lvl">Уровень 2 · Популярное</div>
+                        <h3>Курс с проверкой</h3>
+                        <p>Материалы плюс мой разбор твоих заданий.</p>
+                        <ul>
+                            <li>Всё из уровня «Материалы»</li>
+                            <li>Практические задания</li>
+                            <li>Проверка и обратная связь от меня</li>
+                        </ul>
+                        <div class="where">Вайбкодинг · Чаттинг</div>
+                    </div>
+
+                    <div class="format reveal tilt">
+                        <div class="lvl">Уровень 3</div>
+                        <h3>Наставничество</h3>
+                        <p>Личная работа со мной: разбираем твои задачи и цели.</p>
+                        <ul>
+                            <li>Всё из курса с проверкой</li>
+                            <li>Индивидуальные разборы</li>
+                            <li>Помощь с первыми заказами или работой</li>
+                        </ul>
+                        <div class="where">Вайбкодинг · Чаттинг</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- КАК ПРОХОДИТ ОБУЧЕНИЕ -->
+
+        <section id="how">
+            <div class="container">
+                <div class="label">[ 04 ] Процесс</div>
+                <h2>Как проходит<br><span class="outline">обучение</span></h2>
+                <p class="lead muted" style="margin-bottom: 50px;">Четыре шага — и ты уже учишься.</p>
+
+                <div class="steps">
+                    <div class="step reveal tilt">
+                        <div class="step-num">01</div>
+                        <h3>Подпишись на канал</h3>
+                        <p>В канале лежат бесплатные основы по всем направлениям — начни с них и пойми, что тебе ближе.</p>
+                    </div>
+                    <div class="step reveal tilt">
+                        <div class="step-num">02</div>
+                        <h3>Выбери курс и формат</h3>
+                        <p>Направление и уровень поддержки: материалы, проверка заданий или наставничество.</p>
+                    </div>
+                    <div class="step reveal tilt">
+                        <div class="step-num">03</div>
+                        <h3>Напиши мне или в бота</h3>
+                        <p>Вайбкодинг — через бота Cunbent, остальное — в личные сообщения. Расскажу цену и условия.</p>
+                    </div>
+                    <div class="step reveal tilt">
+                        <div class="step-num">04</div>
+                        <h3>Учись и практикуйся</h3>
+                        <p>Получаешь доступ к урокам в Telegram и проходишь их в своём темпе, с поддержкой.</p>
+                    </div>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-
-    <!-- КАК ПРОХОДИТ ОБУЧЕНИЕ -->
-
-    <section id="how">
-        <div class="container">
-            <div class="section-label">Как это работает</div>
-            <h2>Как проходит обучение</h2>
-            <p class="section-text">Никаких сложных платформ — всё в привычном Telegram.</p>
-
-            <div class="steps">
-                <div class="step reveal tilt">
-                    <div class="step-num">1</div>
-                    <h3>Подпишись на канал</h3>
-                    <p>В канале лежат основы по всем трём направлениям — начни с них.</p>
-                </div>
-                <div class="step reveal tilt">
-                    <div class="step-num">2</div>
-                    <h3>Напиши в личку</h3>
-                    <p>Выбери курс, задай вопросы и узнай цену и условия.</p>
-                </div>
-                <div class="step reveal tilt">
-                    <div class="step-num">3</div>
-                    <h3>Учись и практикуйся</h3>
-                    <p>Получи доступ к урокам и проходи их в своём темпе.</p>
+                <div class="promise reveal">
+                    <p>Тебя ждёт не только <span class="outline">комфортное обучение</span>, но и приятное общение</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Слоган -->
-            <div class="promise reveal">
-                <div class="promise-icon">🤝</div>
-                <p>Тебя ждёт не только <span>комфортное обучение</span>, но и <span>приятное общение</span></p>
+
+        <!-- КОМУ ПОДОЙДЁТ -->
+
+        <section id="fit">
+            <div class="container">
+                <div class="label">[ 05 ] Честно</div>
+                <h2>Кому подойдёт,<br><span class="outline">а кому нет</span></h2>
+
+                <div class="fit" style="margin-top: 40px;">
+                    <div class="fit-col yes reveal">
+                        <h3>Подойдёт, если ты</h3>
+                        <ul>
+                            <li>Хочешь освоить навык с нуля и зарабатывать онлайн</li>
+                            <li>Готов уделять время практике, а не только читать</li>
+                            <li>Ищешь удалённую работу или подработку</li>
+                            <li>Хочешь делать сайты и ботов для себя или на заказ</li>
+                            <li>Ценишь простой формат и живое общение</li>
+                        </ul>
+                    </div>
+                    <div class="fit-col no reveal">
+                        <h3>Не подойдёт, если</h3>
+                        <ul>
+                            <li>Ищешь «кнопку бабло» и доход без усилий</li>
+                            <li>Не готов выполнять задания и пробовать сам</li>
+                            <li>Ждёшь гарантий заработка — их не даёт никто честный</li>
+                            <li>Тебе нет 18 лет (для курса по чаттингу)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <!-- ВОПРОСЫ -->
+        <!-- ВОПРОСЫ -->
 
-    <section id="faq">
-        <div class="container">
-            <div class="section-label">FAQ</div>
-            <h2>Частые вопросы</h2>
+        <section id="faq">
+            <div class="container faq-layout">
+                <div>
+                    <div class="label">[ 06 ] FAQ</div>
+                    <h2>Частые<br><span class="outline">вопросы</span></h2>
+                    <p class="muted">Не нашёл ответ? Напиши мне в Telegram — отвечу лично.</p>
+                </div>
 
-            <div class="faq">
-                <details class="reveal">
-                    <summary>Где проходит обучение?</summary>
-                    <p>Полностью в Telegram: основы — в открытом канале, полные курсы — после записи через личные сообщения.</p>
-                </details>
-                <details class="reveal">
-                    <summary>Нужен ли опыт?</summary>
-                    <p>Нет, каждый курс начинается с основ.</p>
-                </details>
-                <details class="reveal">
-                    <summary>Сколько стоит курс?</summary>
-                    <p>Цену и условия я рассказываю в личных сообщениях — напиши, и я отвечу.</p>
-                </details>
-                <details class="reveal">
-                    <summary>Сколько я буду зарабатывать?</summary>
-                    <p>Это зависит от твоих усилий и практики. Я даю знания и навыки, но не гарантирую доход.</p>
-                </details>
+                <div class="faq">
+                    <details class="reveal">
+                        <summary>Где проходит обучение?</summary>
+                        <p>Полностью в Telegram: бесплатные основы — в открытом канале, полные курсы — после записи через личные сообщения или бота.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary>Нужен ли опыт?</summary>
+                        <p>Нет. Каждый курс начинается с основ, а в вайбкодинге не нужно уметь программировать — код пишет нейросеть.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary>Чем отличаются форматы обучения?</summary>
+                        <p>«Материалы» — проходишь уроки сам. «Курс с проверкой» — я проверяю твои задания и даю обратную связь. «Наставничество» — личная работа со мной и разбор твоих задач.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary>Сколько стоит курс?</summary>
+                        <p>Обучение вайбкодингу — от 559 ₽, тарифы смотри в боте Cunbent. Цену остальных курсов рассказываю в личных сообщениях.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary>Почему по трейдингу только материалы?</summary>
+                        <p>Трейдинг связан с высоким финансовым риском, поэтому это направление я даю в формате структурированных материалов для самостоятельного изучения — без сигналов и индивидуального сопровождения.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary>Что нужно для вайбкодинга?</summary>
+                        <p>Компьютер, интернет и желание разобраться. Все инструменты и сервисы покажу на курсе.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary>Сколько я буду зарабатывать?</summary>
+                        <p>Это зависит от твоих усилий и практики. Я даю знания, навыки и поддержку, но не гарантирую доход.</p>
+                    </details>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <!-- КОНТАКТЫ -->
+        <!-- КОНТАКТЫ -->
 
-    <section id="contact">
-        <div class="container">
-            <div class="contact-box reveal">
-                <div class="section-label">Связь</div>
-                <h2>Начни в Telegram</h2>
-                <p class="section-text">Подписывайся на канал с бесплатными основами или пиши мне напрямую.</p>
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="label">[ 07 ] Связь</div>
+                <h2>Начни<br><span class="outline">сегодня</span></h2>
+                <p class="lead muted">Подписывайся на канал с бесплатными основами, записывайся через бота или пиши мне напрямую.</p>
 
                 <div class="contact-cards">
-                    <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="contact-card tilt" data-tg="channel" target="_blank" rel="noopener">
-                        <span class="ic">📢</span>
+                    <a href="https://t.me/+ifDFHVR6S5w1ZjIy" class="contact-card reveal tilt" data-tg="channel" target="_blank" rel="noopener">
+                        <span class="top"><span>Канал</span><span>↗</span></span>
                         <span>
                             <b>Telegram-канал</b>
-                            <small>Бесплатные основы обучения</small>
+                            <small>Бесплатные основы по всем направлениям</small>
                         </span>
                     </a>
-                    <a href="https://t.me/cunbent" class="contact-card tilt" data-tg="dm" target="_blank" rel="noopener">
-                        <span class="ic">✉️</span>
+                    <a href="https://t.me/cunbent" class="contact-card reveal tilt" data-tg="dm" target="_blank" rel="noopener">
+                        <span class="top"><span>Личка</span><span>↗</span></span>
                         <span>
                             <b>Написать мне</b>
-                            <small>Запись на курс и вопросы</small>
+                            <small>Запись на курс, цены и вопросы</small>
                         </span>
                     </a>
-                    <a href="https://t.me/Cunbent_bot" class="contact-card tilt" data-tg="bot" target="_blank" rel="noopener">
-                        <span class="ic">🤖</span>
+                    <a href="https://t.me/Cunbent_bot" class="contact-card reveal tilt" data-tg="bot" target="_blank" rel="noopener">
+                        <span class="top"><span>Бот</span><span>↗</span></span>
                         <span>
                             <b>Бот Cunbent</b>
                             <small>Тарифы и запись на вайбкодинг</small>
@@ -981,14 +1838,23 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+    </main>
 
 
     <!-- ПОДВАЛ -->
 
     <footer>
-        © 2026 CUNBENT
+        <div class="footer-big" aria-hidden="true">CUNBENT</div>
+        <div class="footer-row">
+            <span>© 2026 CUNBENT</span>
+            <span>
+                <a href="https://t.me/+ifDFHVR6S5w1ZjIy" data-tg="channel" target="_blank" rel="noopener">Канал</a>
+                <a href="https://t.me/cunbent" data-tg="dm" target="_blank" rel="noopener">Личка</a>
+                <a href="https://t.me/Cunbent_bot" data-tg="bot" target="_blank" rel="noopener">Бот</a>
+            </span>
+        </div>
         <p class="disclaimer">
             Материалы носят образовательный характер. Результаты зависят от ваших усилий, доход не гарантируется.
             Торговля на финансовых рынках связана с риском потери средств и не является инвестиционной рекомендацией.
@@ -1003,27 +1869,17 @@
     <script>
         /* =========================
            ТВОИ ССЫЛКИ НА TELEGRAM
-           Поменяй только эти две строки —
+           Поменяй только эти строки —
            ссылки обновятся на всём сайте
         ========================= */
 
         const TELEGRAM_CHANNEL = "https://t.me/+ifDFHVR6S5w1ZjIy";   // канал
-        const TELEGRAM_DM      = "https://t.me/cunbent";  // личные сообщения
-        const TELEGRAM_BOT     = "https://t.me/Cunbent_bot";  // бот (запись на вайбкодинг)
+        const TELEGRAM_DM      = "https://t.me/cunbent";             // личные сообщения
+        const TELEGRAM_BOT     = "https://t.me/Cunbent_bot";         // бот (запись на вайбкодинг)
 
-
-        // Подставляем ссылки во все кнопки
-        document.querySelectorAll('[data-tg="channel"]').forEach(function (link) {
-            link.href = TELEGRAM_CHANNEL;
-        });
-
-        document.querySelectorAll('[data-tg="dm"]').forEach(function (link) {
-            link.href = TELEGRAM_DM;
-        });
-
-        document.querySelectorAll('[data-tg="bot"]').forEach(function (link) {
-            link.href = TELEGRAM_BOT;
-        });
+        document.querySelectorAll('[data-tg="channel"]').forEach(function (link) { link.href = TELEGRAM_CHANNEL; });
+        document.querySelectorAll('[data-tg="dm"]').forEach(function (link) { link.href = TELEGRAM_DM; });
+        document.querySelectorAll('[data-tg="bot"]').forEach(function (link) { link.href = TELEGRAM_BOT; });
 
 
         /* МОБИЛЬНОЕ МЕНЮ */
@@ -1037,7 +1893,6 @@
             burger.setAttribute("aria-expanded", isOpen);
         });
 
-        // Закрываем меню после нажатия на пункт
         navLinks.querySelectorAll("a").forEach(function (link) {
             link.addEventListener("click", function () {
                 navLinks.classList.remove("open");
@@ -1056,29 +1911,55 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.12 });
 
-        document.querySelectorAll(".reveal").forEach(function (el) {
-            observer.observe(el);
-        });
+        document.querySelectorAll(".reveal").forEach(function (el) { observer.observe(el); });
 
 
         /* КНОПКА НАВЕРХ */
 
         const topButton = document.getElementById("topButton");
-
         window.addEventListener("scroll", function () {
-            topButton.classList.toggle("show", window.scrollY > 500);
-        });
-
+            topButton.classList.toggle("show", window.scrollY > 600);
+        }, { passive: true });
         topButton.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
+
+
+        /* 3D-НАКЛОН КАРТОЧЕК (только с мышью, не на телефоне) */
+
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+
+            document.querySelectorAll(".tilt").forEach(function (card) {
+                const glare = document.createElement("div");
+                glare.className = "glare";
+                card.appendChild(glare);
+
+                // Большие карточки наклоняются слабее
+                const max = card.classList.contains("course") ? 4 : 10;
+
+                card.addEventListener("pointermove", function (e) {
+                    const r = card.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width;
+                    const y = (e.clientY - r.top) / r.height;
+                    card.style.transform = "perspective(1000px) rotateX(" + ((0.5 - y) * max) +
+                        "deg) rotateY(" + ((x - 0.5) * max) + "deg) translateY(-4px)";
+                    card.style.setProperty("--gx", x * 100 + "%");
+                    card.style.setProperty("--gy", y * 100 + "%");
+                });
+                card.addEventListener("pointerleave", function () {
+                    card.style.transform = "";
+                });
+            });
+        }
     </script>
 
 
     <!-- =========================
-         3D: библиотека Three.js и сцена
+         3D-ФОН: жидкий хромовый шар и волна из точек
+         Библиотека Three.js
     ========================= -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -1087,104 +1968,104 @@
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             const isMobile = window.matchMedia("(max-width: 760px)").matches;
 
-            // Если 3D не поддерживается — просто убираем холст, сайт работает как раньше
+            // Если 3D не поддерживается — убираем холст, сайт работает и без него
             if (!window.THREE) { canvas.remove(); return; }
 
             let renderer;
             try {
-                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !isMobile, alpha: true });
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
             } catch (e) { canvas.remove(); return; }
 
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
             renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.05;
 
             const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x000000, 0.045);
+            scene.fog = new THREE.Fog(0x000000, 7, 24);
 
-            const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
             camera.position.set(0, 0, 9);
 
-            const GOLD = 0xffd400, AMBER = 0xffaa00, LIGHT = 0xffe94d;
+            /* --- «Студия» для отражений: чёрная комната с белыми софтбоксами --- */
+            const studio = new THREE.Scene();
+            studio.background = new THREE.Color(0x0a0a0a);
+            function softbox(w, h, x, y, z, color) {
+                const m = new THREE.Mesh(
+                    new THREE.PlaneGeometry(w, h),
+                    new THREE.MeshBasicMaterial({ color: color || 0xffffff, side: THREE.DoubleSide })
+                );
+                m.position.set(x, y, z);
+                m.lookAt(0, 0, 0);
+                studio.add(m);
+            }
+            softbox(30, 30, 0, 0, 14, 0x1f1f1f); // мягкий заполняющий свет спереди
+            softbox(30, 30, 0, 0, -14, 0x151515); // и сзади
+            softbox(12, 0.7, 0, 9, 1);          // сверху
+            softbox(0.6, 12, -10, 1, 4);        // слева
+            softbox(0.25, 12, 10, 0, -1);       // справа
+            softbox(5, 0.35, 2, -8, 6);         // снизу
+            softbox(0.35, 4, 8, 3, 8, 0xffb000); // тёплый акцент-блик
+            const pmrem = new THREE.PMREMGenerator(renderer);
+            scene.environment = pmrem.fromScene(studio, 0.03).texture;
 
-            /* --- Свет --- */
-            scene.add(new THREE.AmbientLight(0xffffff, 0.25));
-            const key = new THREE.PointLight(GOLD, 2.2, 40);
-            key.position.set(5, 5, 6);
-            scene.add(key);
-            const rim = new THREE.PointLight(AMBER, 1.6, 40);
-            rim.position.set(-6, -3, 3);
-            scene.add(rim);
-
-            /* --- Центральный кристалл --- */
+            /* --- Жидкий хромовый шар --- */
             const core = new THREE.Group();
             scene.add(core);
 
-            const crystalGeo = new THREE.IcosahedronGeometry(1.7, 0);
-            const crystal = new THREE.Mesh(crystalGeo, new THREE.MeshStandardMaterial({
-                color: GOLD, metalness: 0.9, roughness: 0.22, flatShading: true,
-                emissive: 0x5a4200, emissiveIntensity: 0.8
+            const seg = isMobile ? 90 : 160;
+            const blobGeo = new THREE.SphereGeometry(1.65, seg, Math.round(seg * 0.75));
+            const base = blobGeo.attributes.position.array.slice();
+            const blob = new THREE.Mesh(blobGeo, new THREE.MeshStandardMaterial({
+                color: 0xffffff, metalness: 1, roughness: 0.06
             }));
-            core.add(crystal);
+            core.add(blob);
 
-            const wire = new THREE.LineSegments(
-                new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(2.25, 1)),
-                new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.45 })
+            // Тонкие кольца-орбиты
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 });
+            const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.7, 0.006, 6, 200), ringMat);
+            const ring2 = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.004, 6, 200), ringMat);
+            ring1.rotation.x = 1.25;
+            ring2.rotation.x = 1.0; ring2.rotation.y = 0.5;
+            core.add(ring1, ring2);
+
+            // Маленький хромовый спутник
+            const moon = new THREE.Mesh(
+                new THREE.SphereGeometry(0.16, 32, 24),
+                new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0.15 })
             );
-            core.add(wire);
+            core.add(moon);
 
-            const ring = new THREE.Mesh(
-                new THREE.TorusGeometry(3.1, 0.02, 8, 120),
-                new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0.6 })
-            );
-            ring.rotation.x = Math.PI / 2.4;
-            core.add(ring);
-
-            /* --- Три орбитальные фигуры: трейдинг, чаттинг, вайбкодинг --- */
-            function orbiter(geo, color, radius, speed, phase, tilt) {
-                const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-                    color: color, metalness: 0.8, roughness: 0.3, flatShading: true,
-                    emissive: color, emissiveIntensity: 0.15
-                }));
-                core.add(mesh);
-                return { mesh, radius, speed, phase, tilt };
+            /* --- Волна из белых точек --- */
+            const W = isMobile ? 70 : 130, H = isMobile ? 45 : 70, GAP = 0.32;
+            const wavePos = new Float32Array(W * H * 3);
+            for (let i = 0; i < W; i++) {
+                for (let j = 0; j < H; j++) {
+                    const k = (i * H + j) * 3;
+                    wavePos[k] = (i - W / 2) * GAP;
+                    wavePos[k + 2] = (j - H / 2) * GAP - 4;
+                }
             }
-            const orbiters = [
-                orbiter(new THREE.OctahedronGeometry(0.34), GOLD, 3.1, 0.5, 0, 0.35),          // трейдинг
-                orbiter(new THREE.TorusGeometry(0.24, 0.1, 12, 32), AMBER, 3.1, 0.5, 2.094, 0.35), // чаттинг
-                orbiter(new THREE.BoxGeometry(0.42, 0.42, 0.42), LIGHT, 3.1, 0.5, 4.188, 0.35)   // вайбкодинг
-            ];
-
-            /* --- Звёздная пыль --- */
-            const COUNT = isMobile ? 700 : 1800;
-            const pos = new Float32Array(COUNT * 3);
-            for (let i = 0; i < COUNT; i++) {
-                pos[i * 3]     = (Math.random() - 0.5) * 40;
-                pos[i * 3 + 1] = (Math.random() - 0.5) * 40;
-                pos[i * 3 + 2] = (Math.random() - 0.5) * 30 - 4;
-            }
-            const dustGeo = new THREE.BufferGeometry();
-            dustGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-            const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
-                color: GOLD, size: 0.045, transparent: true, opacity: 0.75, depthWrite: false
+            const waveGeo = new THREE.BufferGeometry();
+            waveGeo.setAttribute("position", new THREE.BufferAttribute(wavePos, 3));
+            const wave = new THREE.Points(waveGeo, new THREE.PointsMaterial({
+                color: 0xffffff, size: isMobile ? 0.04 : 0.03, transparent: true, opacity: 0.7, depthWrite: false
             }));
-            scene.add(dust);
-
-            /* --- Неоновая сетка-пол --- */
-            const grid = new THREE.GridHelper(60, 60, GOLD, 0x3d3300);
-            grid.material.transparent = true;
-            grid.material.opacity = 0.35;
-            grid.position.y = -4;
-            scene.add(grid);
+            wave.position.y = -3.2;
+            scene.add(wave);
 
             /* --- Мышь и прокрутка --- */
-            let mx = 0, my = 0, tx = 0, ty = 0, scrollP = 0;
+            let mx = 0, my = 0, tx = 0, ty = 0, heroP = 0, pageP = 0;
             window.addEventListener("pointermove", function (e) {
                 tx = (e.clientX / window.innerWidth - 0.5) * 2;
                 ty = (e.clientY / window.innerHeight - 0.5) * 2;
-            });
+            }, { passive: true });
+
             function onScroll() {
+                heroP = Math.min(window.scrollY / window.innerHeight, 1);
                 const max = document.documentElement.scrollHeight - window.innerHeight;
-                scrollP = max > 0 ? window.scrollY / max : 0;
+                pageP = max > 0 ? window.scrollY / max : 0;
             }
             window.addEventListener("scroll", onScroll, { passive: true });
             onScroll();
@@ -1195,91 +2076,81 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
 
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
             /* --- Анимация --- */
             const clock = new THREE.Clock();
             let running = true;
             document.addEventListener("visibilitychange", function () {
                 running = !document.hidden;
-                if (running) { clock.getDelta(); requestAnimationFrame(loop); }
+                if (running) requestAnimationFrame(loop);
             });
+
+            const pos = blobGeo.attributes.position;
+            const arr = pos.array;
 
             function loop() {
                 if (!running) return;
-                const t = clock.getElapsedTime();
-                const speed = reduceMotion ? 0.15 : 1;
+                const t = clock.getElapsedTime() * (reduceMotion ? 0.15 : 1);
 
                 mx += (tx - mx) * 0.05;
                 my += (ty - my) * 0.05;
 
-                crystal.rotation.y = t * 0.35 * speed;
-                crystal.rotation.x = t * 0.18 * speed;
-                wire.rotation.y = -t * 0.12 * speed;
-                wire.rotation.z = t * 0.08 * speed;
-                ring.rotation.z = t * 0.2 * speed;
+                // Переливание поверхности шара
+                const amp = 0.16 + Math.abs(mx) * 0.06;
+                for (let i = 0; i < arr.length; i += 3) {
+                    const x = base[i], y = base[i + 1], z = base[i + 2];
+                    const d =
+                        amp * Math.sin(x * 1.6 + t * 0.9) * Math.sin(y * 1.8 + t * 1.1) * Math.sin(z * 1.5 + t * 0.7) * 2.2 +
+                        0.07 * Math.sin(x * 3.0 - t * 1.3 + y * 2.1) +
+                        0.04 * Math.sin(z * 4.2 + t * 1.6);
+                    const s = 1 + d;
+                    arr[i] = x * s; arr[i + 1] = y * s; arr[i + 2] = z * s;
+                }
+                pos.needsUpdate = true;
+                blobGeo.computeVertexNormals();
 
-                orbiters.forEach(function (o) {
-                    const a = t * o.speed * speed + o.phase;
-                    o.mesh.position.set(Math.cos(a) * o.radius, Math.sin(a) * o.radius * o.tilt, Math.sin(a) * o.radius);
-                    o.mesh.rotation.x = a * 2;
-                    o.mesh.rotation.y = a * 1.5;
-                });
+                blob.rotation.y = t * 0.15 + mx * 0.6;
+                blob.rotation.x = my * 0.4;
 
-                // Пульсация
-                const s = 1 + Math.sin(t * 1.6) * 0.03;
-                crystal.scale.set(s, s, s);
+                ring1.rotation.z = t * 0.12;
+                ring2.rotation.z = -t * 0.08;
 
-                // При прокрутке кристалл уезжает вправо и уменьшается, камера опускается
-                const shift = isMobile ? 0 : Math.min(scrollP * 4, 1) * 3.2;
-                core.position.x = shift;
-                core.position.y = -scrollP * 1.5;
-                core.position.z = -1.5 + Math.min(scrollP * 4, 1) * 1.5;
-                const sc = 1 - Math.min(scrollP * 2, 1) * 0.35;
+                const a = t * 0.6;
+                moon.position.set(Math.cos(a) * 2.7, Math.sin(a) * 0.9, Math.sin(a) * 2.7);
+
+                // Позиция шара: на первом экране справа, дальше — по центру в глубине
+                const baseX = isMobile ? 0 : 3.1;
+                const baseY = isMobile ? 1.2 : 0.1;
+                const baseZ = isMobile ? -2.5 : 0;
+                core.position.x = lerp(baseX, isMobile ? 1.6 : 4.6, heroP);
+                core.position.y = lerp(baseY, 0.3, heroP) + Math.sin(t * 0.8) * 0.08;
+                core.position.z = lerp(baseZ, -3, heroP);
+                canvas.style.opacity = (1 - heroP * 0.55).toFixed(3); // приглушаем фон под текстом
+                const sc = isMobile ? 0.9 : 0.85;
                 core.scale.set(sc, sc, sc);
-                core.rotation.y = scrollP * Math.PI * 2;
+                core.rotation.y = pageP * Math.PI * 2;
 
-                dust.rotation.y = t * 0.02 + scrollP * 1.2;
-                dust.rotation.x = scrollP * 0.4;
-                grid.position.z = (t * 0.8) % 1;
+                // Волна из точек
+                const wp = waveGeo.attributes.position.array;
+                for (let i = 0; i < wp.length; i += 3) {
+                    const x = wp[i], z = wp[i + 2];
+                    wp[i + 1] = Math.sin(x * 0.45 + t * 0.9) * 0.35 + Math.cos(z * 0.5 + t * 0.7) * 0.35 +
+                                Math.sin((x + z) * 0.25 - t * 0.5) * 0.25;
+                }
+                waveGeo.attributes.position.needsUpdate = true;
+                wave.position.y = -3.2 - heroP * 0.8;
+                wave.rotation.y = pageP * 0.6;
 
-                camera.position.x = mx * 1.2;
-                camera.position.y = -my * 0.8 + scrollP * 1.5;
-                camera.lookAt(core.position.x * 0.5, core.position.y * 0.5, 0);
+                camera.position.x = mx * 0.6;
+                camera.position.y = -my * 0.4 + pageP * 0.8;
+                camera.lookAt(0, 0, 0);
 
                 renderer.render(scene, camera);
                 requestAnimationFrame(loop);
             }
             loop();
         })();
-
-
-        /* =========================
-           3D-НАКЛОН КАРТОЧЕК (только мышь, не на телефоне)
-        ========================= */
-        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-            !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-
-            document.querySelectorAll(".tilt").forEach(function (card) {
-                if (card.classList.contains("course")) {
-                    const glare = document.createElement("div");
-                    glare.className = "glare";
-                    card.appendChild(glare);
-                }
-                const max = card.classList.contains("contact-card") ? 8 : 12;
-
-                card.addEventListener("pointermove", function (e) {
-                    const r = card.getBoundingClientRect();
-                    const x = (e.clientX - r.left) / r.width;
-                    const y = (e.clientY - r.top) / r.height;
-                    card.style.transform =
-                        "perspective(900px) rotateX(" + ((0.5 - y) * max) + "deg) rotateY(" + ((x - 0.5) * max) + "deg) translateY(-6px)";
-                    card.style.setProperty("--gx", x * 100 + "%");
-                    card.style.setProperty("--gy", y * 100 + "%");
-                });
-                card.addEventListener("pointerleave", function () {
-                    card.style.transform = "";
-                });
-            });
-        }
     </script>
 
 </body>
