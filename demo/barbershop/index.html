@@ -327,7 +327,7 @@
 
     <nav>
         <div class="container">
-            <a href="#" class="logo">ЛЕЗВИЕ<span>.</span></a>
+            <a href="#" class="logo"><span data-name-upper>ЛЕЗВИЕ</span><span>.</span></a>
             <div class="nav-links">
                 <a href="#services">Услуги</a>
                 <a href="#team">Мастера</a>
@@ -341,7 +341,7 @@
     <header class="hero">
         <div class="container">
             <div>
-                <div class="eyebrow">Барбершоп в центре города</div>
+                <div class="eyebrow">Барбершоп <span data-name>«Лезвие»</span><span data-city-wrap hidden> · <span data-city></span></span></div>
                 <h1>Стрижка, после которой <em>хочется</em> вернуться</h1>
                 <p>Мужские стрижки, бритьё и уход за бородой. Без очередей — запись онлайн за минуту, кофе и спокойная атмосфера.</p>
                 <div class="buttons">
@@ -434,9 +434,9 @@
                 <div class="eyebrow">Контакты</div>
                 <h2>Ждём <em>вас</em></h2>
                 <ul class="contact-list">
-                    <li><span>Адрес</span> ул. Примерная, 10</li>
+                    <li><span>Адрес</span> <span data-address>ул. Примерная, 10</span></li>
                     <li><span>Часы</span> Ежедневно, 10:00–21:00</li>
-                    <li><span>Телефон</span> +7 (000) 000-00-00</li>
+                    <li><span>Телефон</span> <span data-phone>+7 (000) 000-00-00</span></li>
                 </ul>
                 <a href="#" class="btn btn-brass">Записаться в Telegram →</a>
             </div>
@@ -446,12 +446,38 @@
 
     <footer>
         <div class="container">
-            <span>© Барбершоп «Лезвие» · демо-сайт</span>
+            <span>© Барбершоп <span data-name>«Лезвие»</span> · демо-сайт</span>
             <span>Сайт сделан <a href="https://cunbent-present.github.io/my-site/" target="_blank" rel="noopener">Cunbent</a> — хочешь такой же? <a href="https://t.me/cunbent" target="_blank" rel="noopener">@cunbent</a></span>
         </div>
     </footer>
 
     <a href="#contacts" class="btn btn-brass sticky-book">Записаться онлайн</a>
+
+    <script>
+        /* Подстановка данных клиента из ссылки:
+           ?name=Борода&city=Казань&phone=+79001234567&address=ул. Ленина, 5 */
+        (function () {
+            var q = new URLSearchParams(location.search);
+            function set(sel, val) {
+                document.querySelectorAll(sel).forEach(function (el) { el.textContent = val; });
+            }
+            var name = (q.get('name') || '').trim().slice(0, 40);
+            if (name) {
+                set('[data-name]', '«' + name + '»');
+                set('[data-name-upper]', name.toUpperCase());
+                document.title = 'Барбершоп «' + name + '» — демо-сайт';
+            }
+            var city = (q.get('city') || '').trim().slice(0, 40);
+            if (city) {
+                set('[data-city]', city);
+                document.querySelectorAll('[data-city-wrap]').forEach(function (el) { el.hidden = false; });
+            }
+            var phone = (q.get('phone') || '').trim().slice(0, 30);
+            if (phone) set('[data-phone]', phone);
+            var address = (q.get('address') || '').trim().slice(0, 80);
+            if (address) set('[data-address]', address);
+        })();
+    </script>
 
 </body>
 
